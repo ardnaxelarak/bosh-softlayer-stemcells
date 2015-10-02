@@ -17,12 +17,15 @@
   echo -e "\n Cleaning build artifacts..."
   go clean
 
+  echo -e "\n Building artifacts..."
+  go build -o $(dirname $0)/../out/sl_stemcells ./main/main.go
+
   echo -e "\n Formatting packages..."
   go fmt ./...
 
   echo -e "\n Integration Testing packages:"
-  ginkgo -r -v --noisyPendings integration
+  ginkgo -r -p -v --noisyPendings test_helpers
 
   echo -e "\n Vetting packages for potential issues..."
-  go tool vet main common cmds integration
+  go tool vet main common cmds integration test_helpers
 )

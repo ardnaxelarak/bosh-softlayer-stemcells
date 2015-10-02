@@ -14,8 +14,10 @@ import (
 	slclient "github.com/maximilien/softlayer-go/client"
 	softlayer "github.com/maximilien/softlayer-go/softlayer"
 
+	cleanup_stemcells "github.com/maximilien/bosh-softlayer-stemcells/cmds/cleanup_stemcells"
 	import_image "github.com/maximilien/bosh-softlayer-stemcells/cmds/import_image"
 	light_stemcell "github.com/maximilien/bosh-softlayer-stemcells/cmds/light_stemcell"
+
 	common "github.com/maximilien/bosh-softlayer-stemcells/common"
 )
 
@@ -33,16 +35,18 @@ func main() {
 
 	flag.Parse()
 
-	if options.HelpFlag || options.LongHelpFlag || len(flag.Args()) == 0 {
+	if options.HelpFlag || options.LongHelpFlag || len(os.Args) == 0 {
 		usage()
 		return
 	}
 
-	switch flag.Args()[0] {
+	switch options.CommandFlag {
 	case "import-image":
 		importImageCmd()
 	case "light-stemcell":
 		lightStemcellCmd()
+	case "cleanup-stemcells":
+		cleanupStemcellsCmd()
 	default:
 		fmt.Println("SoftLayer BOSH Stemcells Utility")
 	}
@@ -119,7 +123,7 @@ func lightStemcellCmd() {
 
 	err = cmd.CheckOptions()
 	if err != nil {
-		cmd.Println("stemcells: Could not light stemcell command, err:", err)
+		cmd.Println("stemcells: Could not create light stemcell command, err:", err)
 		os.Exit(1)
 	}
 
@@ -127,7 +131,7 @@ func lightStemcellCmd() {
 
 	err = cmd.Run()
 	if err != nil {
-		cmd.Println("stemcells: Could not light stemcell, err:", err)
+		cmd.Println("stemcells: Could not run light stemcell, err:", err)
 		os.Exit(1)
 	}
 
@@ -137,11 +141,43 @@ func lightStemcellCmd() {
 	fmt.Println(cmd.GetStemcellPath())
 }
 
+func cleanupStemcellsCmd() {
+	if options.HelpFlag {
+		usage()
+		return
+	}
+
+	client, err := createSoftLayerClient()
+	if err != nil {
+		fmt.Println("stemcells: Could not create the SoftLayer client, err:", err)
+		os.Exit(1)
+	}
+
+	cmd := cleanup_stemcells.NewCleanupStemcellsCmd(options, client)
+
+	err = cmd.CheckOptions()
+	if err != nil {
+		cmd.Println("stemcells: Could not create cleanup stemcells command, err:", err)
+		os.Exit(1)
+	}
+
+	startTime := time.Now()
+
+	err = cmd.Run()
+	if err != nil {
+		cmd.Println("stemcells: Could not run cleanup stemcells, err:", err)
+		os.Exit(1)
+	}
+
+	duration := time.Now().Sub(startTime)
+	cmd.Println("Total time: ", duration)
+}
+
 func init() {
-	flag.StringVar(&options.CommandFlag, "c", "", "the command, one of: import-image")
+	flag.StringVar(&options.CommandFlag, "c", "", "the command, one of: import-image, light-stemcell, or cleanup-stemcells")
 
 	flag.BoolVar(&options.HelpFlag, "h", false, "prints the usage")
-	flag.BoolVar(&options.LongHelpFlag, "-help", false, "prints the usage")
+	flag.BoolVar(&options.LongHelpFlag, "help", false, "prints the usage")
 
 	flag.StringVar(&options.NameFlag, "name", "", "the name used by the specified command")
 	flag.StringVar(&options.NoteFlag, "note", "", "the note to be applied to the imported template")
@@ -155,11 +191,16 @@ func init() {
 	flag.StringVar(&options.InfrastructureFlag, "infrastructure", "softlayer", "the light stemcell infrastructure, defaults to softlayer")
 	flag.StringVar(&options.HypervisorFlag, "hypervisor", "esxi", "the light stemcell version")
 	flag.StringVar(&options.OsNameFlag, "os-name", "ubuntu-trusty", "the name of the operating system")
+
+	flag.StringVar(&options.NamePatternFlag, "name-pattern", "", "the pattern (regex) for the name of the stemcell")
+	flag.StringVar(&options.LastValidDateFlag, "last-valid-date", "", "the last valid date at which anything older will be deleted. format: '<year>-<month>-<day>' or 'year/month/day', e.g.: '2015-12-31' or '2015/12/31'")
+	flag.StringVar(&options.ShipItTagFlag, "shipit-tag", "SHIPIT", "the tag to differentiate shipped and unshipped stemcells")
+
 }
 
 func usage() {
 	usageString := `
-usage: bosh-softlayer-stemcells -c import-image [--name <template-name>] [--note <import note>] 
+usage: bosh-softlayer-stemcells -c <command> [--name <template-name>] [--note <import note>] 
        --os-ref-code <OsRefCode> --uri <swiftURI>
 
   -h | --help   prints the usage
@@ -178,6 +219,24 @@ usage: bosh-softlayer-stemcells -c import-image [--name <template-name>] [--note
                      WIN_2012-STD_64
   --uri            the URI for an object storage object (.vhd/.iso file)
                    swift://<ObjectStorageAccountName>@<clusterName>/<containerName>/<fileName.(vhd|iso)>
+  LIGHT-STEMCELL:
+
+  -c light-stemcell         the light stemcell command
+  --type                    two possible SoftLayer light stemcells: VGBDGT (default) or VDI
+  --path                    the path for the location of the light stemcell file created
+  --version                 the light stemcell version
+  --stemcell-info-filename  the path and filename to a JSON file containing the ID & UUID for a SoftLayer stemcell
+  --infrastructure          the light stemcell infrastructure, defaults to softlayer
+  --hypervisor              the light stemcell version, defaults to esxi
+  --os-name                 the name of the operating system, defaults to ubuntu-trusty
+
+  CLEANUP-STEMCELLS:
+
+  -c cleanup-stemcells  the cleanup stemcells command
+  --name-pattern        the pattern (regex) for the name of the stemcell
+  --last-valid-date     the last valid date at which anything older will be deleted.
+						 format: '<year>-<month>-<day>' or 'year/month/day', e.g.: '2015-12-31' or '2015/12/31', defaults to today's date.
+  --shipit-tag          the tag to differentiate shipped and unshipped stemcells, defaults to SHIPIT
     `
 
 	fmt.Println(fmt.Sprintf("%s\nVersion %s", usageString, VERSION))

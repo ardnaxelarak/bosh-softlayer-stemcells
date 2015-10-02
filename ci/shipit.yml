@@ -1,0 +1,12 @@
+---
+platform: linux
+image: docker:///swayr/slci
+
+inputs:
+  - name: bosh-softlayer-stemcells
+  - name: final-release
+  - name: version
+  - name: stemcell-info
+
+run:
+  path: bosh-softlayer-stemcells/ci/scripts/shipit
