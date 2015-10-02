@@ -343,7 +343,7 @@ groups:
   - sl-go-unit
   - sl-go-integration
 
-- name:shipit
+- name: shipit
   jobs:
   - shipit
   - remove-expiration-tag
