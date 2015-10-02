@@ -320,6 +320,8 @@ groups:
   - stemcells-unit
   - sl-go-unit
   - sl-go-integration
+  - cleanup-stemcells
+  - remove-expiration-tag
 
 - name: bosh-softlayer-cpi
   jobs:
