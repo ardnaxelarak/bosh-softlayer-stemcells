@@ -10,7 +10,7 @@ resources:
   type: git
   source:
     uri: git@github.com:maximilien/bosh-softlayer-cpi.git
-    branch: master
+    branch: stemcell_integration
     private_key: {{private-repo-key}}
 
 - name: bosh-softlayer-cpi-release
@@ -30,8 +30,8 @@ resources:
 - name: bosh-softlayer-stemcells
   type: git
   source:
-    uri: git@github.com:maximilien/bosh-softlayer-stemcells.git
-    branch: master
+    uri: git@github.com:karafelix/bosh-softlayer-stemcells.git
+    branch: bats-integration
     private_key: {{private-repo-key}}
 
 - name: bosh-stemcell-softlayer-image
