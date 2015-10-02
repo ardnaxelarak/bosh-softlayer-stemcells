@@ -155,6 +155,8 @@ jobs:
       params:
         SL_USERNAME: {{SL_USERNAME}}
         SL_API_KEY: {{SL_API_KEY}}
+        SWIFT_USERNAME: {{SWIFT_USERNAME}}
+        SWIFT_CLUSTER: {{SWIFT_CLUSTER}}
 
 - name: cpi-build
   plan:
