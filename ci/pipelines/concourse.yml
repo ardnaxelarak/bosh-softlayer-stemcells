@@ -31,7 +31,7 @@ resources:
   type: git
   source:
     uri: git@github.com:karafelix/bosh-softlayer-stemcells.git
-    branch: bats-integration
+    branch: bats-pipeline
     private_key: {{private-repo-key}}
 
 - name: bosh-stemcell-softlayer-image
@@ -210,6 +210,18 @@ jobs:
         S3_ACCESS_KEY: {{s3-access-key-id}}
         S3_SECRET_KEY: {{s3-secret-access-key}}
 
+- name: bats
+  plan:
+    - get: bosh
+    - get: bosh-softlayer-stemcells
+    - get: bosh-softlayer-private
+    - task: bats
+      file: bosh-softlayer-stemcells/ci/bats.yml
+      config:
+        params:
+            S3_ACCESS_KEY: {{s3-access-key-id}}
+            S3_SECRET_KEY: {{s3-secret-access-key}}
+
 - name: remove-expiration-tag
   plan:
   - get: bosh-softlayer-stemcells
@@ -322,6 +334,7 @@ groups:
   - sl-go-integration
   - cleanup-stemcells
   - remove-expiration-tag
+  - bats
 
 - name: bosh-softlayer-cpi
   jobs:
