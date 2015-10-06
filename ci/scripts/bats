@@ -20,13 +20,15 @@
 
   pwd
 
-  sudo apt-get install libsqlite3-dev
+  locate lsmod
+
+  apt-get install libsqlite3-dev
+  apt-get install libmysqlclient-dev
 
   cd gopath/src/github.com/cloudfoundry/bosh/bat
 
   bundle install
 
-  locate lsmod
 
   cd gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
 
@@ -36,5 +38,5 @@
 
   VBoxManage --version
 
-  sudo vagrant up
+  vagrant up
 )
