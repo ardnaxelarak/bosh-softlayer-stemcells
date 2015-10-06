@@ -23,7 +23,7 @@
   apt-get update
   apt-get install -y libsqlite3-dev
   apt-get install -y libmysqlclient-dev
-  apt-get install -y libpq-dev --fix-missing
+  apt-get install -y postgresql libpgsql-ruby
 
   cd gopath/src/github.com/cloudfoundry/bosh/bat
 
