@@ -27,15 +27,7 @@
 
   bundle install
 
-  echo $base
-  echo $base_gopath
-  pwd
-
-  cd $base_gopath/gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
-
-  pwd
-  ls
-  ls /sbin
+  cd $base_gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
 
   VBoxManage --version
 
