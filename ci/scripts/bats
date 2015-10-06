@@ -21,7 +21,7 @@
   pwd
 
   apt-get update
-  apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev
+  apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module-init-tools
 
   cd gopath/src/github.com/cloudfoundry/bosh/bat
 
