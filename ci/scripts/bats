@@ -27,8 +27,11 @@
 
   bundle install
 
+  echo $base
+  echo $base_gopath
+  pwd
 
-  cd gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
+  cd $base_gopath/gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
 
   pwd
   ls
