@@ -22,6 +22,7 @@
 
   apt-get install -y libsqlite3-dev
   apt-get install -y libmysqlclient-dev
+  apt-get install -y libpq-dev
 
   cd gopath/src/github.com/cloudfoundry/bosh/bat
 
