@@ -22,7 +22,9 @@
 
   cd gopath/src/github.com/cloudfoundry/bosh/bat
 
-  sudo bundle install
+  bundle install
+
+  locate lsmod
 
   cd gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
 
@@ -32,7 +34,5 @@
 
   VBoxManage --version
 
-  sudo /etc/init.d/vboxdrv setup
-
-  vagrant up
+  sudo vagrant up
 )
