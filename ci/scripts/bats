@@ -18,7 +18,13 @@
 
   # s3cmd get s3://bosh-softlayer-cpi-stemcells/$LIGHT_STEMCELL --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
 
+  pwd
+
   cd gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
+
+  pwd
+
+  VBoxManage --version
 
   vagrant up
 )
