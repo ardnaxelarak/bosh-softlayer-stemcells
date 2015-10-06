@@ -24,6 +24,7 @@
 
   pwd
   ls
+  ls /sbin
 
   VBoxManage --version
 
