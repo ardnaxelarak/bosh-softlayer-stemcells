@@ -29,6 +29,8 @@
 
   cd $base_gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
 
+  /etc/init.d/vboxdrv setup
+
   VBoxManage --version
 
   vagrant up
