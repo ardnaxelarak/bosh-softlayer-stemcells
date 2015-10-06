@@ -14,5 +14,7 @@
 
   echo $STEMCELL_VERSION
 
-  s3cmd ls s3://bosh-softlayer-cpi-stemcells/ --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
+  LIGHT_STEMCELL=light-bosh-stemcell-$STEMCELL_VERSION-softlayer-esxi-ubuntu-trusty-go_agent.tgz
+
+  s3cmd get s3://bosh-softlayer-cpi-stemcells/$LIGHT_STEMCELL --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
 )
