@@ -20,6 +20,10 @@
 
   pwd
 
+  cd gopath/src/github.com/cloudfoundry/bosh/bat
+
+  sudo bundle install
+
   cd gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
 
   pwd
