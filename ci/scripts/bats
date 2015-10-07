@@ -27,6 +27,10 @@
   apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module-init-tools virtualbox
   apt-get install -y linux-image-3.16.0-4-amd64 linux-headers-3.16.0-4-amd64
 
+  uname -a
+  uname -r
+  ls /usr/src/kernels
+
   cd gopath/src/github.com/cloudfoundry/bosh-acceptance-tests
 
   ./write_gemfile
