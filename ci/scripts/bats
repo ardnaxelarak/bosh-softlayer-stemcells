@@ -43,7 +43,7 @@
   apt-cache search linux-headers
   apt-cache search linux-image
 
-  apt-get install -y --force-yes linux-headers-$(uname -r)
+  apt-get install -y linux-headers-$(uname -r)
 
   ls /usr/src
 
@@ -55,7 +55,6 @@
 
   cd $base_gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
 
-  export KERN_DIR=/usr/src/linux-headers-3.16.0-4-amd64
   /etc/init.d/vboxdrv setup
 
   cat /var/log/vbox-install.log
