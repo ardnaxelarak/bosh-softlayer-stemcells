@@ -8,6 +8,10 @@
 
   export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 
+  lab_release -a
+
+  cat /etc/apt/sources.list
+
   echo -e "\n Get stemcell version..."
   s3cmd get s3://bosh-softlayer-cpi-stemcells/stemcell-version stemcell-version --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
   STEMCELL_VERSION=`cat stemcell-version`
@@ -28,8 +32,6 @@
   apt-get install -y dkms
   apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module-init-tools virtualbox
   apt-get install -y linux-image-3.16.0-4-amd64 linux-headers-3.16.0-4-amd64
-
-  sudo reboot now
 
   uname -a
   uname -r
