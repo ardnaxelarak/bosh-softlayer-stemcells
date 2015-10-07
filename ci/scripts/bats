@@ -8,8 +8,6 @@
 
   export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 
-  lab_release -a
-
   cat /etc/apt/sources.list
 
   echo -e "\n Get stemcell version..."
