@@ -8,9 +8,6 @@
 
   export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 
-  apt-cache search linux-headers
-  apt-cache search linux-image
-
   echo -e "\n Get stemcell version..."
   s3cmd get s3://bosh-softlayer-cpi-stemcells/stemcell-version stemcell-version --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
   STEMCELL_VERSION=`cat stemcell-version`
@@ -23,7 +20,12 @@
 
   pwd
 
+  deb http://http.debian.net/debian jessie main contrib
   apt-get update
+
+  apt-cache search linux-headers
+  apt-cache search linux-image
+
   apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module-init-tools virtualbox
   apt-get install -y linux-image-3.16.0-4-amd64 linux-headers-3.16.0-4-amd64
 
