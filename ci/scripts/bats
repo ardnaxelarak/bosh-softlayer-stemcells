@@ -31,7 +31,6 @@
   uname -r
 
   ls /usr/src
-  ls /libs/modules
 
   cd gopath/src/github.com/cloudfoundry/bosh-acceptance-tests
 
@@ -41,6 +40,7 @@
 
   cd $base_gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
 
+  KERN_DIR=/usr/src/linux-headers-3.16.0-4-amd64
   /etc/init.d/vboxdrv setup
 
   cat /var/log/vbox-install.log
