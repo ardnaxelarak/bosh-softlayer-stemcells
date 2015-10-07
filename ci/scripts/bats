@@ -8,6 +8,8 @@
 
   export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 
+  apt-cache search linux-headers
+
   echo -e "\n Get stemcell version..."
   s3cmd get s3://bosh-softlayer-cpi-stemcells/stemcell-version stemcell-version --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
   STEMCELL_VERSION=`cat stemcell-version`
@@ -21,7 +23,8 @@
   pwd
 
   apt-get update
-  apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module-init-tools virtualbox linux-generic linux-headers-generic
+  apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module-init-tools virtualbox
+  apt-get install -y linux-headers-amd64
 
   cd gopath/src/github.com/cloudfoundry/bosh-acceptance-tests
 
