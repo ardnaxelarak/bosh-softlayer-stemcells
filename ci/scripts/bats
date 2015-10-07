@@ -22,6 +22,10 @@
 
   pwd
 
+  echo $(lsb-release -sc)
+
+  apt-get install -y python-software-properties software-properties-common
+
   add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ trusty universe"
 
   apt-get update
