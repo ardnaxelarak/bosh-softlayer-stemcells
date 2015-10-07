@@ -21,8 +21,7 @@
   pwd
 
   apt-get update
-  apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module-init-tools virtualbox
-  apt-get install -y linux-headers-amd64
+  apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module-init-tools virtualbox linux-generic linux-headers-generic
 
   cd gopath/src/github.com/cloudfoundry/bosh-acceptance-tests
 
