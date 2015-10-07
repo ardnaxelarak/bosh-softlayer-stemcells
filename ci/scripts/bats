@@ -22,6 +22,8 @@
 
   pwd
 
+  add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ trusty universe"
+
   apt-get update
 
   apt-cache search linux-headers
