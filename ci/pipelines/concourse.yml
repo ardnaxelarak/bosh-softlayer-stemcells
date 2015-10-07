@@ -6,6 +6,13 @@ resources:
     branch: master
     private_key: {{private-repo-key}}
 
+- name: bats
+  type: git
+  source:
+    uri: git@github.com:cloudfoundry/bosh-acceptance-tests.git
+    branch: master
+    private_key: {{private-repo-key}}
+
 - name: bosh-softlayer-cpi
   type: git
   source:
@@ -212,7 +219,7 @@ jobs:
 
 - name: bats
   plan:
-    - get: bosh
+    - get: bats
     - get: bosh-softlayer-stemcells
     - get: bosh-softlayer-private
     - get: bosh-softlayer-cpi-release
