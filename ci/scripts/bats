@@ -8,6 +8,8 @@
 
   export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 
+  cat /var/log/vbox-install.log
+
   echo -e "\n Get stemcell version..."
   s3cmd get s3://bosh-softlayer-cpi-stemcells/stemcell-version stemcell-version --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
   STEMCELL_VERSION=`cat stemcell-version`
