@@ -20,12 +20,12 @@
 
   pwd
 
-  deb http://http.debian.net/debian jessie main contrib
   apt-get update
 
   apt-cache search linux-headers
   apt-cache search linux-image
 
+  apt-get install -y dkms
   apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module-init-tools virtualbox
   apt-get install -y linux-image-3.16.0-4-amd64 linux-headers-3.16.0-4-amd64
 
@@ -42,7 +42,7 @@
 
   cd $base_gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
 
-  KERN_DIR=/usr/src/linux-headers-3.16.0-4-amd64
+  export KERN_DIR=/usr/src/linux-headers-3.16.0-4-amd64
   /etc/init.d/vboxdrv setup
 
   cat /var/log/vbox-install.log
