@@ -55,11 +55,14 @@
 
   cd $base_gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
 
+  lsmod
+
+  modprobe vboxdrv
+
   /etc/init.d/vboxdrv setup
 
   cat /var/log/vbox-install.log
 
-  modprobe vboxdrv
 
   VBoxManage --version
 
