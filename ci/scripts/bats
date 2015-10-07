@@ -43,7 +43,7 @@
   apt-cache search linux-headers
   apt-cache search linux-image
 
-  apt-get install -y linux-headers-$(uname -r)
+  apt-get install -y --force-yes linux-headers-$(uname -r)
 
   ls /usr/src
 
