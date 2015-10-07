@@ -33,7 +33,7 @@
   apt-get install -y python3
   apt-get install -y software-properties-common
 
-  add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ trusty universe"
+  add-apt-repository "deb http://security.ubuntu.com/ubuntu trusty-security main"
 
   apt-get update
 
