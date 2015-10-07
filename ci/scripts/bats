@@ -57,9 +57,9 @@
 
   /etc/init.d/vboxdrv setup
 
-  modprobe vboxdrv
-
   cat /var/log/vbox-install.log
+
+  modprobe vboxdrv
 
   VBoxManage --version
 
