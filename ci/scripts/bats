@@ -22,7 +22,7 @@
 
   apt-get update
   apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module-init-tools virtualbox
-  apt-get install linux-headers-$(uname -r)
+  apt-get install linux-headers-amd64
 
   cd gopath/src/github.com/cloudfoundry/bosh-acceptance-tests
 
