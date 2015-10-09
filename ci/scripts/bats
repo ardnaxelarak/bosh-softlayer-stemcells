@@ -10,10 +10,7 @@ export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 apt-get update
 apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module-init-tools virtualbox
 
-cd gopath/src/github.com/cloudfoundry/bosh/bat
-
-echo "\n Creating gemfile..."
-./write_gemfile
+cd gopath/src/github.com/cloudfoundry/bosh
 
 echo "\n Installing gems..."
 bundle install
