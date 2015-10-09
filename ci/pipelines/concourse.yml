@@ -219,16 +219,17 @@ jobs:
 
 - name: bats
   plan:
+  - aggregate:
     - get: bosh
     - get: bosh-softlayer-stemcells
     - get: bosh-softlayer-private
     - get: bosh-softlayer-cpi-release
-    - task: bats
-      file: bosh-softlayer-stemcells/ci/bats.yml
-      config:
-        params:
-            S3_ACCESS_KEY: {{s3-access-key-id}}
-            S3_SECRET_KEY: {{s3-secret-access-key}}
+  - task: bats
+    file: bosh-softlayer-stemcells/ci/bats.yml
+    config:
+      params:
+        S3_ACCESS_KEY: {{s3-access-key-id}}
+        S3_SECRET_KEY: {{s3-secret-access-key}}
 
 - name: remove-expiration-tag
   plan:
