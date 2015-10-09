@@ -6,6 +6,11 @@ resources:
     branch: master
     private_key: {{private-repo-key}}
 
+- name: bosh-release
+  type: bosh-io-release
+  source:
+    repository: cloudfoundry/bosh
+
 - name: bats
   type: git
   source:
@@ -19,6 +24,15 @@ resources:
     uri: git@github.com:maximilien/bosh-softlayer-cpi.git
     branch: stemcell_integration
     private_key: {{private-repo-key}}
+
+- name: bosh-cpi-dev-artifacts
+  type: s3
+  source:
+      regexp: bosh-sl-cpi\.tgz
+      bucket: bosh-softlayer-cpi-stemcells
+      region_name: {{s3-region}}
+      access_key_id: {{s3-access-key-id}}
+      secret_access_key: {{s3-secret-access-key}}
 
 - name: bosh-softlayer-cpi-release
   type: git
@@ -217,19 +231,33 @@ jobs:
         S3_ACCESS_KEY: {{s3-access-key-id}}
         S3_SECRET_KEY: {{s3-secret-access-key}}
 
+- name: build-candidate
+  serial: true
+  plan:
+  - aggregate:
+    - get: bosh-softlayer-cpi-release
+    - get: bosh-softlayer-stemcells
+  - task: build-candidate
+    file: bosh-softlayer-stemcells/ci/build-candidate.yml
+  - put: bosh-cpi-dev-artifacts
+    params: {from: build/out/.*\.tgz}
+
 - name: bats
   plan:
   - aggregate:
-    - get: bosh
+    - get: bosh-release
     - get: bosh-softlayer-stemcells
-    - get: bosh-softlayer-private
-    - get: bosh-softlayer-cpi-release
+    - get: bats
+    - get: bosh-cpi-dev-artifacts
+      passed: [build-candidate]
   - task: bats
     file: bosh-softlayer-stemcells/ci/bats.yml
     config:
       params:
         S3_ACCESS_KEY: {{s3-access-key-id}}
         S3_SECRET_KEY: {{s3-secret-access-key}}
+        SL_USERNAME: {{SL_USERNAME}}
+        SL_API_KEY: {{SL_API_KEY}}
 
 - name: remove-expiration-tag
   plan:
@@ -343,6 +371,7 @@ groups:
   - sl-go-integration
   - cleanup-stemcells
   - remove-expiration-tag
+  - build-candidate
   - bats
   - shipit
 
