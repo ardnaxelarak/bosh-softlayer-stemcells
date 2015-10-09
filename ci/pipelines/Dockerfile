@@ -43,7 +43,7 @@ RUN wget http://s3.amazonaws.com/ec2-downloads/ec2-api-tools.zip && \
 RUN apt-get -y install openjdk-7-jre
 
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64/jre
-ENV EC2_HOME /usr/local/ec2/ec2-api-tools-1.7.5.0
+ENV EC2_HOME /usr/local/ec2/ec2-api-tools-1.7.5.1
 ENV PATH $PATH:$EC2_HOME/bin
 
 RUN apt-get install -f
