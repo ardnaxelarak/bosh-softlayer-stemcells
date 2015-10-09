@@ -73,5 +73,10 @@ export BAT_VCAP_PASSWORD=c1oudc0w
 export BAT_INFRASTRUCTURE=warden
 export BAT_NETWORKING=manual
 
+echo $(ls ../bosh-dev)
+echo $(ls ../bosh-dev/lib)
+echo $(ls ../bosh-dev/lib/bosh)
+echo $(ls ../bosh-dev/lib/bosh/dev)
+
 echo "\n running BATS..."
 bundle exec rake bat
