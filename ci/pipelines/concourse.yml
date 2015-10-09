@@ -219,7 +219,7 @@ jobs:
 
 - name: bats
   plan:
-    - get: bats
+    - get: bosh
     - get: bosh-softlayer-stemcells
     - get: bosh-softlayer-private
     - get: bosh-softlayer-cpi-release
