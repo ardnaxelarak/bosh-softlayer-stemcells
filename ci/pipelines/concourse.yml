@@ -344,6 +344,7 @@ groups:
   - cleanup-stemcells
   - remove-expiration-tag
   - bats
+  - shipit
 
 - name: bosh-softlayer-cpi
   jobs:
