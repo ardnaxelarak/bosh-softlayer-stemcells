@@ -1,71 +1,77 @@
 #!/bin/bash
 
-(
-  set -e
- 
-  base=$( cd "$( dirname "$( dirname "$( dirname "$0" )")")" && pwd )
-  base_gopath=$( cd $base/../../../.. && pwd )
+set -e
 
-  export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
+base=$( cd "$( dirname "$( dirname "$( dirname "$0" )")")" && pwd )
+base_gopath=$( cd $base/../../../.. && pwd )
 
-  cat /etc/apt/sources.list
+export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 
-  echo -e "\n Get stemcell version..."
-  s3cmd get s3://bosh-softlayer-cpi-stemcells/stemcell-version stemcell-version --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
-  STEMCELL_VERSION=`cat stemcell-version`
+apt-get update
+apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module-init-tools virtualbox
 
-  echo $STEMCELL_VERSION
+cd gopath/src/github.com/cloudfoundry/bosh-acceptance-tests
 
-  LIGHT_STEMCELL=light-bosh-stemcell-$STEMCELL_VERSION-softlayer-esxi-ubuntu-trusty-go_agent.tgz
+echo "\n Creating gemfile..."
+./write_gemfile
 
-  # s3cmd get s3://bosh-softlayer-cpi-stemcells/$LIGHT_STEMCELL --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
+echo "\n Installing gems..."
+bundle install
 
-  pwd
+echo -e "\n Get stemcell version..."
+s3cmd get s3://bosh-softlayer-cpi-stemcells/stemcell-version stemcell-version --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
+STEMCELL_VERSION=`cat stemcell-version`
 
-  echo $(lsb-release -sc)
+echo $STEMCELL_VERSION
 
-  apt-get update
+LIGHT_STEMCELL=light-bosh-stemcell-$STEMCELL_VERSION-softlayer-esxi-ubuntu-trusty-go_agent.tgz
 
-  apt-get install -y dkms
-  apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module-init-tools virtualbox
-  apt-get install -y linux-image-3.16.0-4-amd64 linux-headers-3.16.0-4-amd64
+echo "\n Downloading $LIGHT_STEMCELL..."
+s3cmd get s3://bosh-softlayer-cpi-stemcells/$LIGHT_STEMCELL --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
 
-  apt-get install -y python3
-  apt-get install -y software-properties-common
+STEMCELL_PATH=$PWD/$LIGHT_STEMCELL
 
-  add-apt-repository "deb http://security.ubuntu.com/ubuntu trusty-security main"
+director_target=173.193.4.40
+director_user=admin
+director_password=admin
 
-  apt-get update
+bosh -n target $director_target
+bosh -n login $director_user $director_password
 
-  uname -a
-  uname -r
+director_uuid=$(bosh -n status --uuid)
 
-  apt-cache search linux-headers
-  apt-cache search linux-image
+spec_path=$PWD/bat.spec
 
-  apt-get install -y --force-yes linux-headers-$(uname -r)
+# Create bat.spec used by BATS to generate BOSH manifest
+cat > $spec_path << EOF
+---
+cpi: softlayer
+properties:
+static_ip: 10.244.0.2
+uuid: $director_uuid
+pool_size: 1
+instances: 1
+stemcell:
+  name: ${latest%.*}
+  version: latest
+mbus: nats://nats:0b450ada9f830085e2cdeff6@10.42.49.80:4222
+networks:
+- name: default
+  type: dynamic
+  dns: [8.8.8.8, 10.0.80.11, 10.0.80.12]
+  cloud_properties:
+    security_groups: [bosh]
+EOF
 
-  ls /usr/src
+# Set up env vars used by BATS
+export BAT_DEPLOYMENT_SPEC=$spec_path
+export BAT_STEMCELL=$STEMCELL_PATH
+export BAT_DIRECTOR=$director_target
+export BAT_DNS_HOST=$director_target
+export BAT_VCAP_PASSWORD=c1oudc0w
 
-  cd gopath/src/github.com/cloudfoundry/bosh-acceptance-tests
+export BAT_INFRASTRUCTURE=warden
+export BAT_NETWORKING=manual
 
-  ./write_gemfile
-
-  bundle install
-
-  cd $base_gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
-
-  lsmod
-
-
-  /etc/init.d/vboxdrv setup
-
-  modprobe vboxdrv
-
-  cat /var/log/vbox-install.log
-
-
-  VBoxManage --version
-
-  vagrant up
-)
+echo "\n running BATS..."
+bundle exec rake bat
