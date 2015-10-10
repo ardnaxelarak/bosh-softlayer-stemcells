@@ -4,7 +4,7 @@ set -e
 
 mkdir out
 
-semver=`cat version`
+semver=`cat stemcell-version`
 
 cd bosh-cpi-release
 
