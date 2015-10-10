@@ -7,4 +7,4 @@ inputs:
   - name: bosh-softlayer-stemcells
     path: gopath/src/github.com/maximilien/bosh-softlayer-stemcells
 run:
-  path: bosh-softlayer-stemcells/ci/scripts/build-candidate.sh
+  path: gopath/src/github.com/maximilien/bosh-softlayer-stemcells/ci/scripts/build-candidate.sh
