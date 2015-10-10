@@ -237,6 +237,7 @@ jobs:
   - aggregate:
     - get: bosh-softlayer-cpi-release
     - get: bosh-softlayer-stemcells
+    - get: version
   - task: build-candidate
     file: bosh-softlayer-stemcells/ci/build-candidate.yml
   - put: bosh-cpi-dev-artifacts
