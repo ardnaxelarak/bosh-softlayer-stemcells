@@ -247,7 +247,7 @@ jobs:
   - task: build-candidate
     file: bosh-softlayer-stemcells/ci/build-candidate.yml
   - put: bosh-cpi-dev-artifacts
-    params: {from: build/out/.*\.tgz}
+    params: {from: gopath/out/.*\.tgz}
 
 - name: bats
   plan:

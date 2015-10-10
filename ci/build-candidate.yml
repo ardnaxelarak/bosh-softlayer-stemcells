@@ -3,6 +3,8 @@ platform: linux
 image: docker:///karafelix/slci
 inputs:
   - name: bosh-softlayer-cpi-release
+    path: gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
   - name: bosh-softlayer-stemcells
+    path: gopath/src/github.com/maximilien/bosh-softlayer-stemcells
 run:
   path: bosh-softlayer-stemcells/ci/scripts/build-candidate.sh

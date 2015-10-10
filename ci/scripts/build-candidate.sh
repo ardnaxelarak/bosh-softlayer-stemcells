@@ -2,7 +2,13 @@
 
 set -e
 
-mkdir out
+base=$( cd "$( dirname "$( dirname "$( dirname "$0" )")")" && pwd )
+base_gopath=$( cd $base/../../../.. && pwd )
+
+mkdir $base_gopath/out
+
+export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
+
 
 s3cmd get s3://bosh-softlayer-cpi-stemcells/stemcell-version stemcell-version --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
 semver=`cat stemcell-version`
@@ -23,4 +29,4 @@ cpi_release_name="bosh-sl-cpi"
 echo "building CPI release..."
 bosh create release --name $cpi_release_name --version $semver --with-tarball
 
-mv dev_releases/$cpi_release_name/$cpi_release_name-$semver.tgz ../out/
+mv dev_releases/$cpi_release_name/$cpi_release_name-$semver.tgz $base_gopath/out
