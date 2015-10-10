@@ -87,6 +87,14 @@ resources:
     secret_access_key: {{s3-secret-access-key}}
     initial_version: 1.0.0
 
+- name: stemcell-version
+  type: s3
+  source:
+    bucket: bosh-softlayer-cpi-stemcells
+    key: stemcell-version
+    access_key_id: {{s3-access-key-id}}
+    secret_access_key: {{s3-secret-access-key}}
+
 - name: softlayer-stemcell
   type: s3
   source:
@@ -237,7 +245,7 @@ jobs:
   - aggregate:
     - get: bosh-softlayer-cpi-release
     - get: bosh-softlayer-stemcells
-    - get: version
+    - get: stemcell-version
   - task: build-candidate
     file: bosh-softlayer-stemcells/ci/build-candidate.yml
   - put: bosh-cpi-dev-artifacts
