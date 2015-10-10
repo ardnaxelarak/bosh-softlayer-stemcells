@@ -1,6 +1,6 @@
 ---
 platform: linux
-image: docker:///boshcpi/aws-cpi-release
+image: docker:///karafelix/slci
 inputs:
   - name: bosh-softlayer-cpi-release
   - name: bosh-softlayer-stemcells

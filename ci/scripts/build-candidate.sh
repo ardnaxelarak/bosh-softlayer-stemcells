@@ -4,6 +4,7 @@ set -e
 
 mkdir out
 
+s3cmd get s3://bosh-softlayer-cpi-stemcells/stemcell-version stemcell-version --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
 semver=`cat stemcell-version`
 
 cd bosh-cpi-release
