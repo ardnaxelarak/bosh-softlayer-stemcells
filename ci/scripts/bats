@@ -9,7 +9,7 @@ export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 
 semver=`cat version/number`
 
-cd bosh/bat
+cd gopath/src/github.com/cloudfoundry/bosh/bat
 ./write_gemfile
 
 pushd $base_gopath/src/github.com/maximilien/bosh-softlayer-cpi-release

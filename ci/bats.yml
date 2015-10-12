@@ -4,12 +4,12 @@ image: docker:///karafelix/bats
 
 inputs:
   - name: bosh-release
-    path: gopath/src/github.com/cloudfoundry/bosh
   - name: bosh-softlayer-stemcells
     path: gopath/src/github.com/maximilien/bosh-softlayer-stemcells
   - name: bosh-softlayer-cpi-release
     path: gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
   - name: bosh
+    path: gopath/src/github.com/cloudfoundry/bosh
   - name: bosh-cpi-dev-artifacts
   - name: version
 
