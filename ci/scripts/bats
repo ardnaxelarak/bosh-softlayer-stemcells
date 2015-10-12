@@ -7,6 +7,15 @@ base_gopath=$( cd $base/../../../.. && pwd )
 
 export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 
+echo $base
+ls $base
+
+echo $base_gopath
+ls $base_gopath
+
+pwd
+ls
+
 apt-get update
 apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module-init-tools virtualbox
 
