@@ -257,8 +257,8 @@ jobs:
     - get: bosh
     - get: bosh-softlayer-cpi-release
     - get: bosh-cpi-dev-artifacts
-    - get: version
       passed: [build-candidate]
+    - get: version
   - task: bats
     file: bosh-softlayer-stemcells/ci/bats.yml
     config:
