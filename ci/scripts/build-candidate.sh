@@ -11,12 +11,14 @@ export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 
 cd $base/../bosh-softlayer-cpi-release
 
-gem install bosh_cli
+gem install bosh_cli --no-ri --no-rdoc
 
 echo "using bosh CLI version..."
 bosh version
 
 cpi_release_name="bosh-sl-cpi"
+
+rm -R src/golang_1.3
 
 echo "building CPI release..."
 bosh create release --name $cpi_release_name --with-tarball
