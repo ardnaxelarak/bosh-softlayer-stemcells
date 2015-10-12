@@ -11,6 +11,8 @@ export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 
 cd $base/../bosh-softlayer-cpi-release
 
+gem install bosh_cli
+
 echo "using bosh CLI version..."
 bosh version
 
