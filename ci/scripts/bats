@@ -19,7 +19,8 @@ ls
 apt-get update
 apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module-init-tools virtualbox
 
-cd bosh/bat
+cd bats
+./write_gemfile
 
 # echo "Installing gems..."
 bundle install
@@ -80,4 +81,4 @@ export BAT_INFRASTRUCTURE=warden
 export BAT_NETWORKING=manual
 
 echo "running BATS..."
-bundle exec rake bat
+bundle exec rspec spec
