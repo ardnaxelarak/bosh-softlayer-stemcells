@@ -10,9 +10,7 @@ export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 apt-get update
 apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module-init-tools virtualbox
 
-cd bats
-
-./write_gemfile
+cd bosh/bat
 
 # echo "Installing gems..."
 bundle install
