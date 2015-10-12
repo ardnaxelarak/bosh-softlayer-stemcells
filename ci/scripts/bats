@@ -16,13 +16,12 @@ ls $base_gopath
 pwd
 ls
 
-apt-get update
-apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module-init-tools virtualbox
-
 cd bosh/bat
 ./write_gemfile
 
-bosh create release --force
+pushd $base_gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
+  bosh create release --force
+popd
 
 # echo "Installing gems..."
 bundle install

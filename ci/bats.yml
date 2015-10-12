@@ -6,6 +6,8 @@ inputs:
   - name: bosh-release
   - name: bosh-softlayer-stemcells
     path: gopath/src/github.com/maximilien/bosh-softlayer-stemcells
+  - name: bosh-softlayer-cpi-release
+    path: gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
   - name: bosh
   - name: bosh-cpi-dev-artifacts
 
