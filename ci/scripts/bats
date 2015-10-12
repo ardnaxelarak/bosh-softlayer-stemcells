@@ -19,8 +19,10 @@ ls
 apt-get update
 apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module-init-tools virtualbox
 
-cd bats
+cd bosh/bat
 ./write_gemfile
+
+bosh create release --force
 
 # echo "Installing gems..."
 bundle install
