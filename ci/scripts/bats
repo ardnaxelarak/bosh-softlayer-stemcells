@@ -20,6 +20,7 @@ cd bosh/bat
 ./write_gemfile
 
 pushd $base_gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
+  rm -R src/golang_1.3
   bosh create release --force
 popd
 
