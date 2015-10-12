@@ -9,7 +9,7 @@ mkdir $base_gopath/out
 
 export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 
-cd bosh-cpi-release
+cd $base/../bosh-softlayer-cpi-release
 
 echo "running unit tests"
 pushd src/bosh_aws_cpi
