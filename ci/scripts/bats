@@ -12,8 +12,10 @@ apt-get install -y libsqlite3-dev libmysqlclient-dev postgresql libpq-dev module
 
 cd bats
 
+./write_gemfile
+
 # echo "Installing gems..."
-# bundle install
+bundle install
 
 echo -e "\n Get stemcell version..."
 s3cmd get s3://bosh-softlayer-cpi-stemcells/stemcell-version stemcell-version --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
