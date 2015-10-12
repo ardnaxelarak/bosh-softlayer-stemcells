@@ -9,10 +9,6 @@ mkdir $base_gopath/out
 
 export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 
-
-s3cmd get s3://bosh-softlayer-cpi-stemcells/stemcell-version stemcell-version --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
-semver=`cat stemcell-version`
-
 cd bosh-cpi-release
 
 echo "running unit tests"
@@ -27,6 +23,6 @@ bosh version
 cpi_release_name="bosh-sl-cpi"
 
 echo "building CPI release..."
-bosh create release --name $cpi_release_name --version $semver --with-tarball
+bosh create release --name $cpi_release_name --with-tarball
 
-mv dev_releases/$cpi_release_name/$cpi_release_name-$semver.tgz $base_gopath/out
+mv dev_releases/$cpi_release_name/$cpi_release_name.tgz $base_gopath/out
