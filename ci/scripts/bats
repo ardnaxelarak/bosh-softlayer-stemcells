@@ -14,7 +14,7 @@ cd bosh/bat
 
 pushd $base_gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
   rm -R src/golang_1.3
-  bosh create release --force --name bosh-softlayer-cpi --version $semver --with-tarball
+#  bosh create release --force --name bosh-softlayer-cpi --version $semver --with-tarball
 popd
 
 # echo "Installing gems..."
