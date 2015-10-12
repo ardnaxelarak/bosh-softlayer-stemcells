@@ -21,6 +21,6 @@ cpi_release_name="bosh-sl-cpi"
 rm -R src/golang_1.3
 
 echo "building CPI release..."
-bosh create release --name $cpi_release_name --with-tarball
+bosh create release --name $cpi_release_name --with-tarball --force
 
 mv dev_releases/$cpi_release_name/$cpi_release_name.tgz $base_gopath/out
