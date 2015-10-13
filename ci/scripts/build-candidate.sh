@@ -18,7 +18,7 @@ cd $base/../bosh-softlayer-cpi-release
 echo "using bosh CLI version..."
 bosh version
 
-cpi_release_name="bosh-sl-cpi"
+cpi_release_name="bosh-softlayer-cpi-release"
 
 rm -R src/golang_1.3
 
