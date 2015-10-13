@@ -5,6 +5,8 @@ set -e
 base=$( cd "$( dirname "$( dirname "$( dirname "$0" )")")" && pwd )
 base_gopath=$( cd $base/../../../.. && pwd )
 
+version=`cat version/number`
+
 mkdir $base_gopath/out
 
 export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
@@ -21,6 +23,6 @@ cpi_release_name="bosh-sl-cpi"
 rm -R src/golang_1.3
 
 echo "building CPI release..."
-bosh create release --name $cpi_release_name --with-tarball --force
+bosh create release --name $cpi_release_name --version $version --with-tarball --force
 
 mv dev_releases/$cpi_release_name/$cpi_release_name*.tgz $base_gopath/out

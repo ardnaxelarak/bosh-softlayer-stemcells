@@ -6,5 +6,6 @@ inputs:
     path: gopath/src/github.com/maximilien/bosh-softlayer-cpi-release
   - name: bosh-softlayer-stemcells
     path: gopath/src/github.com/maximilien/bosh-softlayer-stemcells
+  - name: version
 run:
   path: gopath/src/github.com/maximilien/bosh-softlayer-stemcells/ci/scripts/build-candidate.sh
