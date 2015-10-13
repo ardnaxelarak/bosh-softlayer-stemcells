@@ -2,16 +2,10 @@
 
 set -e
 
-gem uninstall -a bosh_cli
-
-gem install bosh_cli -v '=1.2650.0'
-
 base=$( cd "$( dirname "$( dirname "$( dirname "$0" )")")" && pwd )
 base_gopath=$( cd $base/../../../.. && pwd )
 
 version=`cat version/number`
-
-cat -b /var/lib/gems/2.1.0/gems/bosh_cli-*/lib/cli/commands/release.rb
 
 mkdir $base_gopath/out
 

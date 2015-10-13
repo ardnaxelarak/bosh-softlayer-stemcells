@@ -7,6 +7,12 @@ base_gopath=$( cd $base/../../../.. && pwd )
 
 export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 
+gem uninstall -a bosh_cli
+
+gem install bosh_cli -v '=1.2650.0'
+
+cat -b /var/lib/gems/2.1.0/gems/bosh_cli-*/lib/cli/commands/release.rb
+
 cd gopath/src/github.com/cloudfoundry/bosh-acceptance-tests
 ./write_gemfile
 
