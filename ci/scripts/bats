@@ -7,9 +7,9 @@ base_gopath=$( cd $base/../../../.. && pwd )
 
 export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 
-gem uninstall -ax bosh_cli --force
+# gem uninstall -ax bosh_cli --force
 
-gem install bosh_cli -v '1.2650.0' --no-rdoc --no-ri
+# gem install bosh_cli -v '1.2652.0' --no-rdoc --no-ri
 
 cat -b /var/lib/gems/2.1.0/gems/bosh_cli-*/lib/cli/commands/release.rb
 
