@@ -2,6 +2,10 @@
 
 set -e
 
+gem uninstall -a bosh_cli
+
+gem install bosh_cli -v '=1.2650.0'
+
 base=$( cd "$( dirname "$( dirname "$( dirname "$0" )")")" && pwd )
 base_gopath=$( cd $base/../../../.. && pwd )
 
