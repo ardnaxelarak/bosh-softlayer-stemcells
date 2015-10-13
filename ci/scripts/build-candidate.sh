@@ -11,6 +11,8 @@ base_gopath=$( cd $base/../../../.. && pwd )
 
 version=`cat version/number`
 
+cat -b /var/lib/gems/2.1.0/gems/bosh_cli-*/lib/cli/commands/release.rb
+
 mkdir $base_gopath/out
 
 export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
