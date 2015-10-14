@@ -253,11 +253,8 @@ jobs:
 - name: bats
   plan:
   - aggregate:
-    - get: bosh-release
     - get: bosh-softlayer-stemcells
     - get: bats
-    - get: bosh-cpi-dev-artifacts
-      passed: [build-candidate]
   - task: bats
     file: bosh-softlayer-stemcells/ci/bats.yml
     config:
