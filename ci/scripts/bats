@@ -35,7 +35,9 @@ director_password=admin
 bosh -n target $director_target
 bosh -n login $director_user $director_password
 
+echo "Uploading bat-2.yml"
 bosh -n upload release bats/spec/system/assets/bat-release/releases/bat-2.yml
+echo "Finished uploading bat-2.yml"
 
 director_uuid=$(bosh -n status --uuid)
 
