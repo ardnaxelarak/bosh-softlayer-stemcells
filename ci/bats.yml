@@ -7,6 +7,7 @@ inputs:
     path: gopath/src/github.com/maximilien/bosh-softlayer-stemcells
   - name: bats
     path: gopath/src/github.com/cloudfoundry/bosh-acceptance-tests
+  - name: bosh-cpi-release-dev-artifacts
 
 run:
   path: gopath/src/github.com/maximilien/bosh-softlayer-stemcells/ci/scripts/bats

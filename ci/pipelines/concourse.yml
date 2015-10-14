@@ -255,6 +255,7 @@ jobs:
   - aggregate:
     - get: bosh-softlayer-stemcells
     - get: bats
+    - get: bosh-cpi-dev-artifacts
   - task: bats
     file: bosh-softlayer-stemcells/ci/bats.yml
     config:
