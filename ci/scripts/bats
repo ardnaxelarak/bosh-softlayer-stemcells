@@ -68,7 +68,5 @@ export BAT_VCAP_PASSWORD=c1oudc0w
 export BAT_INFRASTRUCTURE=warden
 export BAT_NETWORKING=manual
 
-bosh -n upload release spec/system/assets/bat-release/releases/bat-2.yml
-
 echo "running BATS..."
 bundle exec rspec spec
