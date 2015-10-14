@@ -42,19 +42,19 @@ cat > $spec_path << EOF
 ---
 cpi: softlayer
 properties:
-static_ip: 10.244.0.2
-uuid: $director_uuid
-pool_size: 1
-instances: 1
-stemcell:
-  name: ${LIGHT_STEMCELL%.*}
-  version: latest
-mbus: nats://nats:0b450ada9f830085e2cdeff6@10.42.49.80:4222
-networks:
-- name: default
-  type: dynamic
-  dns: [8.8.8.8, 10.0.80.11, 10.0.80.12]
-  cloud_properties:
+  static_ip: 10.244.0.2
+  uuid: $director_uuid
+  pool_size: 1
+  instances: 1
+  stemcell:
+    name: ${LIGHT_STEMCELL%.*}
+    version: latest
+  mbus: nats://nats:0b450ada9f830085e2cdeff6@10.42.49.80:4222
+  networks:
+  - name: default
+    type: dynamic
+    dns: [8.8.8.8, 10.0.80.11, 10.0.80.12]
+    cloud_properties:
     security_groups: [bosh]
 EOF
 
