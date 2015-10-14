@@ -7,7 +7,7 @@ base_gopath=$( cd $base/../../../.. && pwd )
 
 export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 
-ls /var/lib/gems/2.1.0/gems/bosh_cli-*/lib/cli/commands/release.rb
+ls /var/lib/gems/*/gems/bosh_cli-*/lib/cli/commands/
 cat -b /var/lib/gems/2.1.0/gems/bosh_cli-*/lib/cli/commands/release.rb
 
 cd gopath/src/github.com/cloudfoundry/bosh-acceptance-tests
