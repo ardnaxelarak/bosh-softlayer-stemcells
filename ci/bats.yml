@@ -9,4 +9,4 @@ inputs:
   - name: bosh-release
 
 run:
-  path: gopath/src/github.com/maximilien/bosh-softlayer-stemcells/ci/scripts/bats
+  path: bosh-softlayer-stemcells/ci/scripts/bats
