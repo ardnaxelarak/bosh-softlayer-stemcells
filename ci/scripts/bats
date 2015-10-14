@@ -7,11 +7,7 @@ base_gopath=$( cd $base/../../../.. && pwd )
 
 export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 
-# gem uninstall -ax bosh_cli --force
-
-# gem install bosh_cli -v '1.2652.0' --no-rdoc --no-ri
-
-cat -b /var/lib/gems/2.1.0/gems/bosh_cli-*/lib/cli/commands/release.rb
+cat -b /var/lib/gems/2.1.0/gems/bosh_cli-1.2957.0/lib/cli/commands/release.rb
 
 cd gopath/src/github.com/cloudfoundry/bosh-acceptance-tests
 ./write_gemfile
@@ -73,6 +69,15 @@ export BAT_VCAP_PASSWORD=c1oudc0w
 
 export BAT_INFRASTRUCTURE=warden
 export BAT_NETWORKING=manual
+
+# try something crazy to debug
+ed /var/lib/gems/2.1.0/gems/bosh_cli-1.2957.0/lib/cli/commands/release.rb << EOF
+201i
+say(tarball_path)
+say(tarball)
+.
+w
+EOF
 
 echo "running BATS..."
 bundle exec rspec spec
