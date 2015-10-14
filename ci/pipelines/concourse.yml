@@ -255,6 +255,7 @@ jobs:
   - aggregate:
     - get: bosh-softlayer-stemcells
     - get: bats
+    - get: bosh-release
     - get: bosh-cpi-dev-artifacts
       passed: [build-candidate]
   - task: bats
