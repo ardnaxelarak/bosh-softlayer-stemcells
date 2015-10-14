@@ -73,11 +73,12 @@ export BAT_NETWORKING=manual
 # try something crazy to debug
 ed /var/lib/gems/2.1.0/gems/bosh_cli-1.2957.0/lib/cli/commands/release/upload_release.rb << EOF
 64i
-say(tarball_path)
-say(tarball)
+err(tarball_path)
 .
 w
 EOF
+
+cat -b /var/lib/gems/2.1.0/gems/bosh_cli-1.2957.0/lib/cli/commands/release/upload_release.rb
 
 echo "running BATS..."
 bundle exec rspec spec
