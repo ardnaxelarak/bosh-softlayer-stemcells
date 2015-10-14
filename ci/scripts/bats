@@ -7,7 +7,7 @@ base_gopath=$( cd $base/../../../.. && pwd )
 
 export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 
-cat -b /var/lib/gems/2.1.0/gems/bosh_cli-1.2957.0/lib/cli/commands/release
+cat -b /var/lib/gems/2.1.0/gems/bosh_cli-1.2957.0/lib/cli/commands/release/upload_release.rb
 
 cd gopath/src/github.com/cloudfoundry/bosh-acceptance-tests
 ./write_gemfile
@@ -71,8 +71,8 @@ export BAT_INFRASTRUCTURE=warden
 export BAT_NETWORKING=manual
 
 # try something crazy to debug
-ed /var/lib/gems/2.1.0/gems/bosh_cli-1.2957.0/lib/cli/commands/release << EOF
-201i
+ed /var/lib/gems/2.1.0/gems/bosh_cli-1.2957.0/lib/cli/commands/release/upload_release.rb << EOF
+80i
 say(tarball_path)
 say(tarball)
 .
