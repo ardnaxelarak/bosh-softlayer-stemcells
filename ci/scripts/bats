@@ -7,7 +7,9 @@ base_gopath=$( cd $base/../../../.. && pwd )
 
 export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
 
-cd gopath/src/github.com/cloudfoundry/bosh-acceptance-tests
+cp bosh-softlayer-stemcells/templates/softlayer.yml.erb bats/templates/
+
+cd bats
 ./write_gemfile
 
 # echo "Installing gems..."
