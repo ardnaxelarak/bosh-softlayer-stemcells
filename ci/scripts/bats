@@ -15,18 +15,12 @@ cd bats
 # echo "Installing gems..."
 bundle install
 
-echo -e "\n Get stemcell version..."
-s3cmd get s3://bosh-softlayer-cpi-stemcells/stemcell-version stemcell-version --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
-STEMCELL_VERSION=`cat stemcell-version`
-
-echo $STEMCELL_VERSION
-
-LIGHT_STEMCELL=light-bosh-stemcell-$STEMCELL_VERSION-softlayer-esxi-ubuntu-trusty-go_agent.tgz
-
-echo "Downloading $LIGHT_STEMCELL..."
-s3cmd get s3://bosh-softlayer-cpi-stemcells/$LIGHT_STEMCELL --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
-
-STEMCELL_PATH=$PWD/$LIGHT_STEMCELL
+pushd light-stemcell
+    LIGHT_STEMCELL=`ls light-stemcell/*.tgz`
+    echo $LIGHT_STEMCELL
+    STEMCELL_PATH=$PWD/$LIGHT_STEMCELL
+    echo $STEMCELL_PATH
+popd
 
 director_target=173.193.4.40
 director_user=admin
