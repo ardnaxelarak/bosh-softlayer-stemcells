@@ -2,6 +2,13 @@
 
 set -e
 
+pushd light-stemcell
+    LIGHT_STEMCELL=`ls light-stemcell/*.tgz`
+    echo $LIGHT_STEMCELL
+    STEMCELL_PATH=$PWD/$LIGHT_STEMCELL
+    echo $STEMCELL_PATH
+popd
+
 base=$( cd "$( dirname "$( dirname "$( dirname "$0" )")")" && pwd )
 base_gopath=$( cd $base/../../../.. && pwd )
 
@@ -14,13 +21,6 @@ cd bats
 
 # echo "Installing gems..."
 bundle install
-
-pushd light-stemcell
-    LIGHT_STEMCELL=`ls light-stemcell/*.tgz`
-    echo $LIGHT_STEMCELL
-    STEMCELL_PATH=$PWD/$LIGHT_STEMCELL
-    echo $STEMCELL_PATH
-popd
 
 director_target=173.193.4.40
 director_user=admin
