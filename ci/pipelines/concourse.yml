@@ -30,7 +30,14 @@ resources:
   source:
       regexp: bosh-softlayer-cpi-release\.tgz
       bucket: bosh-softlayer-cpi-stemcells
-      region_name: {{s3-region}}
+      access_key_id: {{s3-access-key-id}}
+      secret_access_key: {{s3-secret-access-key}}
+
+- name: light-stemcell
+  type: s3
+  source:
+      regexp: light-bosh-stemcell-\d+-softlayer-.*\.tgz
+      bucket: bosh-softlayer-cpi-stemcells
       access_key_id: {{s3-access-key-id}}
       secret_access_key: {{s3-secret-access-key}}
 
@@ -238,6 +245,8 @@ jobs:
         SL_API_KEY: {{SL_API_KEY}}
         S3_ACCESS_KEY: {{s3-access-key-id}}
         S3_SECRET_KEY: {{s3-secret-access-key}}
+  - put: light-stemcell
+    params: {from: .*\.tgz}
 
 - name: build-candidate
   plan:
@@ -258,6 +267,8 @@ jobs:
     - get: bosh-release
     - get: bosh-cpi-dev-artifacts
       passed: [build-candidate]
+    - get: light-stemcell
+      passed: [create-light-stemcell]
   - task: bats
     file: bosh-softlayer-stemcells/ci/bats.yml
     config:
