@@ -25,7 +25,8 @@ pushd bats
 popd
 
 pushd bats/spec/system/assets/bat-release
-  bosh create release --force --name bats
+  bosh create release --force --name bats --version 2 --with-tarball
+  bosh upload release dev_releases/*.tgz
 popd
 
 director_target=173.193.4.40
