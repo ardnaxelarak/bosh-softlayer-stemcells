@@ -2,6 +2,8 @@
 
 set -e
 
+ls
+
 pushd light-stemcell
     LIGHT_STEMCELL=`ls light-stemcell/*.tgz`
     echo $LIGHT_STEMCELL
