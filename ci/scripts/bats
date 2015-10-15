@@ -33,7 +33,7 @@ bosh -n login $director_user $director_password
 
 pushd bats/spec/system/assets/bat-release
   bosh create release --force --name bats --version 2 --with-tarball
-  bosh upload release dev_releases/*.tgz
+  bosh upload release dev_releases/bat/*.tgz
 popd
 
 # echo "Uploading bat-2.yml"
