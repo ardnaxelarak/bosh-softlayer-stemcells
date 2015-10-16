@@ -25,14 +25,6 @@ resources:
     branch: stemcell_integration
     private_key: {{private-repo-key}}
 
-- name: bosh-cpi-dev-artifacts
-  type: s3
-  source:
-      regexp: bosh-softlayer-cpi-release\.tgz
-      bucket: bosh-softlayer-cpi-stemcells
-      access_key_id: {{s3-access-key-id}}
-      secret_access_key: {{s3-secret-access-key}}
-
 - name: bat-release-artifact
   type: s3
   source:
@@ -289,8 +281,9 @@ jobs:
     - get: bosh-softlayer-stemcells
     - get: bats
     - get: bosh-release
-    - get: bosh-cpi-dev-artifacts
-      passed: [build-candidate]
+    - get: final-release
+      passed: [cpi-release-shipit]
+      trigger: true
     - get: light-stemcell
       passed: [create-light-stemcell]
       trigger: true

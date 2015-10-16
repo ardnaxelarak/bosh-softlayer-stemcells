@@ -5,7 +5,7 @@ image: docker:///karafelix/bats
 inputs:
   - name: bosh-softlayer-stemcells
   - name: bats
-  - name: bosh-cpi-dev-artifacts
+  - name: final-release
   - name: bosh-release
   - name: light-stemcell
   - name: bat-release-artifact
