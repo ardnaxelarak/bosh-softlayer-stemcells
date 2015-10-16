@@ -253,17 +253,6 @@ jobs:
   - put: light-stemcell
     params: {from: .*\.tgz}
 
-- name: build-candidate
-  plan:
-  - aggregate:
-    - get: bosh-softlayer-cpi-release
-    - get: bosh-softlayer-stemcells
-    - get: version
-  - task: build-candidate
-    file: bosh-softlayer-stemcells/ci/build-candidate.yml
-  - put: bosh-cpi-dev-artifacts
-    params: {from: gopath/out/.*\.tgz}
-
 - name: generate-bat-release
   plan:
   - aggregate:
@@ -418,7 +407,6 @@ groups:
   - sl-go-integration
   - cleanup-stemcells
   - remove-expiration-tag
-  - build-candidate
   - generate-bat-release
   - bats
   - shipit
