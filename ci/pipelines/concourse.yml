@@ -293,6 +293,7 @@ jobs:
       passed: [build-candidate]
     - get: light-stemcell
       passed: [create-light-stemcell]
+      trigger: true
     - get: bat-release-artifact
       passed: [generate-bat-release]
   - task: upload-bat-release
