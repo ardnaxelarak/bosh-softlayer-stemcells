@@ -8,4 +8,4 @@ popd
 
 mkdir out
 
-cp bats/spec/system/assets/bat-release/dev-releases/bat/*.tgz out/
+cp bats/spec/system/assets/bat-release/dev_releases/bat/*.tgz out/
