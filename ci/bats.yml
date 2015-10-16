@@ -8,6 +8,7 @@ inputs:
   - name: bosh-cpi-dev-artifacts
   - name: bosh-release
   - name: light-stemcell
+  - name: bat-release-artifact
 
 run:
   path: bosh-softlayer-stemcells/ci/scripts/bats

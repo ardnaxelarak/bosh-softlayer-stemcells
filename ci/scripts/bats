@@ -7,43 +7,16 @@ pushd light-stemcell
     STEMCELL_PATH=$PWD/$LIGHT_STEMCELL
 popd
 
-echo "stemcell path:"
-echo $STEMCELL_PATH
-
-base=$( cd "$( dirname "$( dirname "$( dirname "$0" )")")" && pwd )
-base_gopath=$( cd $base/../../../.. && pwd )
-
-export GOPATH=$base/Godeps/_workspace:$base_gopath:$GOPATH
-
 cp bosh-softlayer-stemcells/templates/softlayer.yml.erb bats/templates/
 
-pushd bats
-  ./write_gemfile
+cd bats
+./write_gemfile
 
 # echo "Installing gems..."
-  bundle install
-popd
-
-director_target=173.193.4.40
-director_user=admin
-director_password=admin
+bundle install
 
 bosh -n target $director_target
 bosh -n login $director_user $director_password
-
-pushd bats/spec/system/assets/bat-release
-  bosh create release --force --name bat --version 2 --with-tarball
-  ls dev_releases
-  ls dev_releases/bat
-  echo $PWD/dev_releases/bat/*.tgz
-  bosh upload release $PWD/dev_releases/bat/*.tgz
-popd
-
-# echo "Uploading bat-2.yml"
-# bosh -n upload release bats/spec/system/assets/bat-release/releases/bat-2.yml
-# echo "Finished uploading bat-2.yml"
-
-cd bats
 
 director_uuid=$(bosh -n status --uuid)
 

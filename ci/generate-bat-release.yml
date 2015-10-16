@@ -1,0 +1,11 @@
+---
+platform: linux
+image: docker:///karafelix/slci
+
+inputs:
+  - name: bosh-softlayer-stemcells
+  - name: bats
+  - name: bat-release-artifact
+
+run:
+  path: bosh-softlayer-stemcells/ci/scripts/generate-bat-release.yml

@@ -33,6 +33,14 @@ resources:
       access_key_id: {{s3-access-key-id}}
       secret_access_key: {{s3-secret-access-key}}
 
+- name: bat-release-artifact
+  type: s3
+  source:
+      regexp: bat\.tgz
+      bucket: bosh-softlayer-cpi-stemcells
+      access_key_id: {{s3-access-key-id}}
+      secret_access_key: {{s3-secret-access-key}}
+
 - name: light-stemcell
   type: s3
   source:
@@ -259,6 +267,21 @@ jobs:
   - put: bosh-cpi-dev-artifacts
     params: {from: gopath/out/.*\.tgz}
 
+- name: generate-bat-release
+  plan:
+  - aggregate:
+    - get: bosh-softlayer-stemcells
+    - get: bats
+  - task: generate-bat-release
+    file: bosh-softlayer-stemcells/ci/generate-bat-release
+    config:
+      params:
+        director_target: {{director_target}}
+        director_user: {{director_user}}
+        director_password: {{director_password}}
+  - put: bat-release-artifact
+    params: {from: out/.*\.tgz}
+
 - name: bats
   plan:
   - aggregate:
@@ -269,14 +292,24 @@ jobs:
       passed: [build-candidate]
     - get: light-stemcell
       passed: [create-light-stemcell]
+    - get: bat-release-artifact
+      passed: [generate-bat-release]
+  - task: upload-bat-release
+    file: bosh-softlayer-stemcells/ci/upload-bat-release.yml
+    config:
+      params:
+        director_target: {{director_target}}
+        director_user: {{director_user}}
+        director_password: {{director_password}}
   - task: bats
     file: bosh-softlayer-stemcells/ci/bats.yml
     config:
       params:
-        S3_ACCESS_KEY: {{s3-access-key-id}}
-        S3_SECRET_KEY: {{s3-secret-access-key}}
         SL_USERNAME: {{SL_USERNAME}}
         SL_API_KEY: {{SL_API_KEY}}
+        director_target: {{director_target}}
+        director_user: {{director_user}}
+        director_password: {{director_password}}
 
 - name: remove-expiration-tag
   plan:
