@@ -2,9 +2,9 @@
 
 set -e
 
-sed --in-place '/ignore_missing_gateway/s/^/#/' bosh/release/jobs/director/template/director.yml.erb.erb
+sed --in-place '/ignore_missing_gateway/s/^/#/' bosh/release/jobs/director/templates/director.yml.erb.erb
 
-cat -n bosh/release/jobs/director/template/director.yml.erb.erb
+cat -n bosh/release/jobs/director/templates/director.yml.erb.erb
 
 pushd bosh
     bundle install

@@ -265,6 +265,7 @@ jobs:
   plan:
   - aggregate:
     - get: bosh
+    - get: bosh-softlayer-stemcells
   - task: generate-sl-bosh-release
     file: bosh-softlayer-stemcells/ci/generate-sl-bosh-release.yml
   - put: sl-bosh-release
