@@ -59,7 +59,7 @@ resources:
   type: git
   source:
     uri: git@github.com:karafelix/bosh-softlayer-stemcells.git
-    branch: bats-pipeline
+    branch: bosh-init
     private_key: {{private-repo-key}}
 
 - name: bosh-stemcell-softlayer-image
@@ -127,6 +127,14 @@ resources:
   type: time
   source:
     interval: 336h
+
+- name: sl-bosh-release
+  type: s3
+  source:
+    bucket: bosh-softlayer-cpi-stemcells
+    versioned_file: sl-bosh.tgz
+    access_key_id: {{s3-access-key-id}}
+    secret_access_key: {{s3-secret-access-key}}
 
 jobs:
 - name: bosh-stemcell
@@ -252,6 +260,15 @@ jobs:
         S3_SECRET_KEY: {{s3-secret-access-key}}
   - put: light-stemcell
     params: {from: .*\.tgz}
+
+- name: generate-sl-bosh-release
+  plan:
+  - aggregate:
+    - get: bosh
+  - task: generate-sl-bosh-release
+    file: bosh-softlayer-stemcells/ci/generate-sl-bosh-release.yml
+  - put: sl-bosh-release
+    params: {from: out/.*\.tgz}
 
 - name: generate-bat-release
   plan:
@@ -409,6 +426,7 @@ groups:
   - sl-go-integration
   - cleanup-stemcells
   - remove-expiration-tag
+  - generate-sl-bosh-release
   - generate-bat-release
   - bats
   - shipit
@@ -442,3 +460,8 @@ groups:
   - shipit
   - remove-expiration-tag
   - cleanup-stemcells
+
+- name: bosh-init
+  jobs:
+  - generate-sl-bosh-release
+  - bats
