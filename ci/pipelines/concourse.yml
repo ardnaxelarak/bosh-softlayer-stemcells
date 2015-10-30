@@ -28,8 +28,8 @@ resources:
 - name: bosh-softlayer-cpi
   type: git
   source:
-    uri: git@github.com:maximilien/bosh-softlayer-cpi.git
-    branch: stemcell_integration
+    uri: git@github.com:karafelix/bosh-softlayer-cpi.git
+    branch: env-var
     private_key: {{private-repo-key}}
 
 - name: bat-release-artifact
@@ -206,6 +206,7 @@ jobs:
       params:
         SL_USERNAME: {{SL_USERNAME}}
         SL_API_KEY: {{SL_API_KEY}}
+        SL_DATACENTER: {{SL_DATACENTER}}
         SWIFT_USERNAME: {{SWIFT_USERNAME}}
         SWIFT_CLUSTER: {{SWIFT_CLUSTER}}
 
@@ -232,13 +233,16 @@ jobs:
   plan:
   - aggregate:
     - get: bosh-softlayer-private
+    - get: bosh-softlayer-cpi
+      params: {submodules: none}
+      passed: [cpi-build]
     - get: bosh-softlayer-cpi-release
       passed: [cpi-release-rc]
     - get: version
       passed: [cpi-release-rc]
       params: {bump: final}
   - task: create-final-release
-    file: bosh-softlayer-cpi-release/ci/shipit.yml
+    file: bosh-softlayer-stemcells-/ci/cpi-release-shipit.yml
     config:
       params:
         S3_ACCESS_KEY: {{s3-access-key-id}}
@@ -285,8 +289,10 @@ jobs:
     - get: sl-bosh-release
       passed: [generate-sl-bosh-release]
     - get: light-stemcell
+      passed: [create-light-stemcell]
     - get: bosh-agent
     - get: final-release
+      passed: [cpi-release-shipit]
   - task: bosh-init
     file: bosh-softlayer-stemcells/ci/bosh-init.yml
     config:
@@ -402,6 +408,7 @@ jobs:
       params:
         SL_USERNAME: {{SL_USERNAME}}
         SL_API_KEY: {{SL_API_KEY}}
+        SL_DATACENTER: {{SL_DATACENTER}}
 
 - name: cleanup-stemcells
   plan:

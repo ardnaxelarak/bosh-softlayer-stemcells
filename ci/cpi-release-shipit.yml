@@ -1,0 +1,13 @@
+---
+platform: linux
+image: docker:///swayr/slci
+
+inputs:
+  - name: bosh-softlayer-private
+  - name: bosh-softlayer-cpi-release
+  - name: bosh-softlayer-cpi
+    path: bosh-softlayer-cpi-release/bosh-softlayer-cpi
+  - name: version
+
+run:
+  path: bosh-softlayer-cpi-release/ci/scripts/shipit
