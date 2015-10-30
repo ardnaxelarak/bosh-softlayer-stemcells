@@ -17,10 +17,11 @@ popd
 
 mkdir bosh-init
 
-deplopment=$PWD/bosh-init/bosh.yml
+dep_spec=$PWD/bosh-init/bosh.yml
+echo $dep_spec
 
 # Create deploment manifest
-cat > $deployment << EOF
+cat > $dep_spec << EOF
 ---
 name: bosh
 
@@ -142,6 +143,6 @@ EOF
 cd bosh-init
 
 echo "setting deploment..."
-bosh-init deployment $deployment
+bosh-init deployment $dep_spec
 
-bosh-init deploy $deployment
+bosh-init deploy $dep_spec
