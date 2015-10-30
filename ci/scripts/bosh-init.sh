@@ -18,7 +18,6 @@ popd
 mkdir bosh-init
 
 dep_spec=$PWD/bosh-init/bosh.yml
-echo $dep_spec
 
 # Create deploment manifest
 cat > $dep_spec << EOF
@@ -141,8 +140,6 @@ cloud_provider:
 EOF
 
 echo $PATH
-
-ls /usr/local/bin
 
 cd bosh-init
 
