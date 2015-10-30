@@ -69,7 +69,7 @@ jobs:
   - {name: blobstore, release: bosh}
   - {name: director, release: bosh}
   - {name: health_monitor, release: bosh}
-  - {name: cpi, release: bosh-softlayer-cpi}
+  - {name: cpi, release: bosh-softlayer-cpi-release}
 
   resource_pool: vms
   persistent_disk_pool: disks
@@ -126,7 +126,7 @@ jobs:
     ntp: &ntp []
 
 cloud_provider:
-  template: {name: cpi, release: bosh-softlayer-cpi}
+  template: {name: cpi, release: bosh-softlayer-cpi-release}
   mbus: "https://admin:admin@bosh-experimental.softlayer.com:6868" # <--- Replace with VmNamePrefix + Domain indicated in cloud_properties of resource_pools section, as bosh-init does not support dynamic ip, it is only supporting static/floating ip, so we are using predined hostname in mbus. Please don't use IP here.
   properties:
     softlayer: *softlayer
