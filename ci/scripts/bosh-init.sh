@@ -140,6 +140,10 @@ cloud_provider:
             blobstore_path: /var/vcap/micro_bosh/data/cache
 EOF
 
+echo $PATH
+
+ls /usr/local/bin
+
 cd bosh-init
 
 echo "setting deploment..."
