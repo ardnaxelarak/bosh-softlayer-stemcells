@@ -147,6 +147,4 @@ ls /usr/local/bin
 cd bosh-init
 
 echo "setting deploment..."
-bosh-init deployment $dep_spec
-
 bosh-init deploy $dep_spec
