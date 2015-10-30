@@ -28,7 +28,7 @@ name: bosh
 releases:
 - name: bosh
   url: file://$BOSH_RELEASE
-- name: bosh-softlayer-cpi
+- name: bosh-softlayer-cpi-release
   url: file://$CPI_RELEASE
 
 resource_pools:
