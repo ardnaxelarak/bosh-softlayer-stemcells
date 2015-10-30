@@ -17,8 +17,6 @@ popd
 
 mkdir bosh-init
 
-director_uuid=$(bosh -n status --uuid)
-
 deplopment=$PWD/bosh-init/bosh.yml
 
 # Create deploment manifest
