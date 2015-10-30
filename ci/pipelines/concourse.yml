@@ -11,6 +11,13 @@ resources:
   source:
     repository: cloudfoundry/bosh
 
+- name: bosh-agent
+  type: git
+  source:
+    uri: git@github.com:mattcui/bosh-agent.git
+    branch: bm_beta
+    private_key: {{private-repo-key}}
+
 - name: bats
   type: git
   source:
@@ -271,6 +278,25 @@ jobs:
   - put: sl-bosh-release
     params: {from: out/.*\.tgz}
 
+- name: bosh-init
+  plan:
+  - aggregate:
+    - get: bosh-softlayer-stemcells
+      trigger: true
+    - get: sl-bosh-release
+      trigger: true
+      passed: [generate-sl-bosh-release]
+    - get: light-stemcell
+    - get: bosh-agent
+    - get: final-release
+  - task: bosh-init
+    file: bosh-softlayer-stemcells/ci/bosh-init.yml
+    config:
+      params:
+        SL_USERNAME: {{SL_USERNAME}}
+        SL_API_KEY: {{SL_API_KEY}}
+        SL_DATACENTERE: {{SL_DATACENTER}}
+
 - name: generate-bat-release
   plan:
   - aggregate:
@@ -428,6 +454,7 @@ groups:
   - cleanup-stemcells
   - remove-expiration-tag
   - generate-sl-bosh-release
+  - bosh-init
   - generate-bat-release
   - bats
   - shipit
@@ -465,4 +492,5 @@ groups:
 - name: bosh-init
   jobs:
   - generate-sl-bosh-release
+  - bosh-init
   - bats

@@ -1,0 +1,13 @@
+---
+platform: linux
+image: docker:///swayr/slci
+
+inputs:
+  - name: bosh-agent
+  - name: final-release
+  - name: sl-bosh-release
+  - name: bosh-softlayer-stemcells
+  - name: light-stemcell
+
+run:
+  path: bosh-softlayer-stemcells/ci/scripts/bosh-init.sh
