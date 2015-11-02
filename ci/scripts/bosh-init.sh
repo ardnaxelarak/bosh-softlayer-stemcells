@@ -130,13 +130,13 @@ cloud_provider:
   properties:
     softlayer: *softlayer
     cpi:
-    agent:
-      mbus: https://admin:admin@127.0.0.1:6868
-    ntp: *ntp
-    blobstore:
-      provider: local
-      options:
-        blobstore_path: /var/vcap/micro_bosh/data/cache
+      agent:
+        mbus: https://admin:admin@127.0.0.1:6868
+      ntp: *ntp
+      blobstore:
+        provider: local
+        options:
+          blobstore_path: /var/vcap/micro_bosh/data/cache
 EOF
 
 echo $PATH
