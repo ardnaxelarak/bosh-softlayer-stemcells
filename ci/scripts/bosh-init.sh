@@ -36,14 +36,14 @@ resource_pools:
   stemcell:
     url: file://$STEMCELL_PATH
   cloud_properties:
-    Hostname: bosh-experimental
-    Domain: softlayer.com
-    StartCpus: 1
-    MaxMemory: 1024
-    Datacenter:
-      Name: $SL_DATACENTER
-    SshKeys:
-    - id: 74826
+    hostname: bosh-experimental
+    domain: softlayer.com
+    start_cpus: 1
+    max_memory: 1024
+    datacenter:
+      name: $SL_DATACENTER
+    ssh_keys:
+    - private_key: ./bosh.pem
     HourlyBillingFlag: true
 disk_pools:
 - name: disks
