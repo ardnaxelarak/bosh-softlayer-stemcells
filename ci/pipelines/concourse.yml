@@ -296,7 +296,7 @@ jobs:
       params:
         SL_USERNAME: {{SL_USERNAME}}
         SL_API_KEY: {{SL_API_KEY}}
-        SL_DATACENTERE: {{SL_DATACENTER}}
+        SL_DATACENTER: {{SL_DATACENTER}}
 
 - name: generate-bat-release
   plan:
