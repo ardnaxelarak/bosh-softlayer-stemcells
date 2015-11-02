@@ -36,8 +36,8 @@ resource_pools:
   stemcell:
     url: file://$STEMCELL_PATH
   cloud_properties:
+    Hostname: bosh-experimental
     Domain: softlayer.com
-    VmNamePrefix: bosh-experimental  # <--- It is better to use a catchy name which will be used in the following section
     StartCpus: 1
     MaxMemory: 1024
     Datacenter:

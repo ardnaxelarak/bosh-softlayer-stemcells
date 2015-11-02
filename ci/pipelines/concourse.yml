@@ -29,7 +29,7 @@ resources:
   type: git
   source:
     uri: git@github.com:karafelix/bosh-softlayer-cpi.git
-    branch: env-var
+    branch: kara_updates
     private_key: {{private-repo-key}}
 
 - name: bat-release-artifact
