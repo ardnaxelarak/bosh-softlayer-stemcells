@@ -41,7 +41,9 @@ resource_pools:
     StartCpus: 1
     MaxMemory: 1024
     Datacenter:
-       Name: $SL_DATACENTER
+      Name: $SL_DATACENTER
+    SshKeys:
+    - id: 74826
     HourlyBillingFlag: true
 disk_pools:
 - name: disks
