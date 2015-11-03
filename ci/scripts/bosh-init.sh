@@ -43,7 +43,7 @@ resource_pools:
     Datacenter:
       Name: $SL_DATACENTER
     SshKeys:
-      id: 74826
+    - id: 74826
     HourlyBillingFlag: true
 disk_pools:
 - name: disks
