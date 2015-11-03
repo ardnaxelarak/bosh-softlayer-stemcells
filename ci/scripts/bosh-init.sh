@@ -43,7 +43,7 @@ resource_pools:
     Datacenter:
       Name: $SL_DATACENTER
     SshKeys:
-    - PrivateKey: ./bosh.pem
+      id: 74826
     HourlyBillingFlag: true
 disk_pools:
 - name: disks
