@@ -36,7 +36,7 @@ resources:
   type: s3
   source:
       regexp: bat\.tgz
-      bucket: bosh-softlayer-cpi-stemcells
+      bucket: {{s3-bucket}}
       access_key_id: {{s3-access-key-id}}
       secret_access_key: {{s3-secret-access-key}}
 
@@ -44,7 +44,7 @@ resources:
   type: s3
   source:
       regexp: light-bosh-stemcell-\d+-softlayer-.*\.tgz
-      bucket: bosh-softlayer-cpi-stemcells
+      bucket: {{s3-bucket}}
       access_key_id: {{s3-access-key-id}}
       secret_access_key: {{s3-secret-access-key}}
 
@@ -72,16 +72,16 @@ resources:
 - name: bosh-stemcell-softlayer-image
   type: s3
   source:
-    bucket: bosh-softlayer-cpi-stemcells
     regexp: bosh-stemcell-softlayer.vhd
+    bucket: {{s3-bucket}}
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
 
 - name: final-release
   type: s3
   source:
-    bucket: bosh-softlayer-cpi-stemcells
     regexp: bosh-softlayer-cpi-release-(.*).tgz
+    bucket: {{s3-bucket}}
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
 
@@ -95,7 +95,7 @@ resources:
 - name: version
   type: semver
   source:
-    bucket: bosh-softlayer-cpi-stemcells
+    bucket: {{s3-bucket}}
     key: current-version
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
@@ -104,7 +104,7 @@ resources:
 - name: stemcell-version
   type: s3
   source:
-    bucket: bosh-softlayer-cpi-stemcells
+    bucket: {{s3-bucket}}
     key: stemcell-version
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
@@ -112,7 +112,7 @@ resources:
 - name: softlayer-stemcell
   type: s3
   source:
-    bucket: bosh-softlayer-cpi-stemcells
+    bucket: {{s3-bucket}}
     regexp: bosh-stemcell-(.*)-vsphere-(.*).tgz
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
@@ -120,7 +120,7 @@ resources:
 - name: stemcell-info
   type: s3
   source:
-    bucket: bosh-softlayer-cpi-stemcells
+    bucket: {{s3-bucket}}
     versioned_file: stemcell-info.json
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
@@ -138,7 +138,7 @@ resources:
 - name: sl-bosh-release
   type: s3
   source:
-    bucket: bosh-softlayer-cpi-stemcells
+    bucket: {{s3-bucket}}
     versioned_file: sl-bosh.tgz
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
