@@ -5,7 +5,10 @@
 
   echo -e "\n Get stemcell version... "
   STEMCELL_VERSION=`cat vsphere-stemcell/version`
-  echo $STEMCELL_VERSION
+
+  # output stemcell-version to update to s3 bucket
+  mkdir out
+  echo $STEMCELL_VERSION > out/stemcell-version
 
   echo -e "\n Install vagrant plugins..."
   vagrant plugin install vagrant-berkshelf
@@ -30,7 +33,4 @@
 
   echo -e "\n Terminating VM"
   ec2-describe-instances --filter "key-name=bosh" | grep instance | awk '{print $3}' | xargs ec2-terminate-instances
-
-  # output stemcell-version to update to s3 bucket
-  echo $STEMCELL_VERSION > stemcell-version
 )
