@@ -4,7 +4,7 @@
   set -e
 
   echo -e "\n Get stemcell version..."
-  STEMCELL_VERSION=`cat stemcell-version`
+  STEMCELL_VERSION=`cat stemcell-version/stemcell-version`
   echo $STEMCELL_VERSION
 
   echo -e "\n Get stemcell..."
