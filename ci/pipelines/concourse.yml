@@ -168,7 +168,8 @@ jobs:
   plan:
   - get: bosh-softlayer-stemcells
     trigger: true
-  - get: bosh-softlayer-stemcells
+    passed: [bosh-stemcell]
+  - get: stemcell-version
     trigger: true
     passed: [bosh-stemcell]
   - task: convert-stemcell
