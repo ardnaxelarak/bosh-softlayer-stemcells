@@ -40,7 +40,7 @@ resources:
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
  
-- name: vsphere-stemcell
+- name: s3-vsphere-stemcell
   type: s3
   source:
     regexp: bosh-stemcell-(.*)-vsphere-esxi-ubuntu-trusty-go_agent\.tgz
@@ -172,7 +172,7 @@ jobs:
   - aggregate:
     - put: stemcell-version
       params: {from: out/stemcell-version}
-    - put: vsphere-stemcell
+    - put: s3-vsphere-stemcell
       params: {from: out/bosh-stemcell-.*-vsphere-.*\.tgz}
 
 - name: convert-stemcell
