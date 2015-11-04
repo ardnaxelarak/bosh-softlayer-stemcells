@@ -105,7 +105,7 @@ resources:
   type: s3
   source:
     bucket: {{s3-bucket}}
-    key: stemcell-version
+    versioned_file: stemcell-version
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
 
@@ -152,6 +152,10 @@ jobs:
     - get: bosh-softlayer-private
     - get: vsphere-stemcell
       trigger: true
+  - task: update-stemcell-version
+    file: bosh-softlayer-stemcells/ci/update-stemcell-version.yml
+  - put: stemcell-version
+    params: {file: stemcell-version}
   - task: bosh-stemcell
     file: bosh-softlayer-stemcells/ci/bosh-stemcell.yml
     config:
