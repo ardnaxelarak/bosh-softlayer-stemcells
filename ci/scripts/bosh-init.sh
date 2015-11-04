@@ -41,7 +41,7 @@ resource_pools:
     StartCpus: 4
     MaxMemory: 8192
     Datacenter:
-      Name: $SL_DATACENTER
+      Name: lon02
     HourlyBillingFlag: true
     PrimaryNetworkComponent:
       NetworkVlan:
