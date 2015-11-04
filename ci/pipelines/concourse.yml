@@ -51,7 +51,7 @@ resources:
 - name: bosh-softlayer-cpi-release
   type: git
   source:
-    uri: git@github.com:karafelix/bosh-softlayer-cpi-release.git
+    uri: git@github.com:maximilien/bosh-softlayer-cpi-release.git
     branch: master
     private_key: {{private-repo-key}}
 
@@ -233,13 +233,18 @@ jobs:
   plan:
   - aggregate:
     - get: bosh-softlayer-private
+    - get: bosh-softlayer-stemcells
+    - get: bosh-softlayer-cpi
+      passed: [cpi-build]
+      trigger: true
     - get: bosh-softlayer-cpi-release
       passed: [cpi-release-rc]
+      params: {submodules: none}
     - get: version
       passed: [cpi-release-rc]
       params: {bump: final}
   - task: create-final-release
-    file: bosh-softlayer-cpi-release/ci/shipit.yml
+    file: bosh-softlayer-stemcells/ci/cpi-release-shipit.yml
     config:
       params:
         S3_ACCESS_KEY: {{s3-access-key-id}}
