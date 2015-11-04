@@ -35,18 +35,26 @@ resources:
 - name: bat-release-artifact
   type: s3
   source:
-      regexp: bat\.tgz
-      bucket: {{s3-bucket}}
-      access_key_id: {{s3-access-key-id}}
-      secret_access_key: {{s3-secret-access-key}}
+    regexp: bat\.tgz
+    bucket: {{s3-bucket}}
+    access_key_id: {{s3-access-key-id}}
+    secret_access_key: {{s3-secret-access-key}}
+ 
+- name: vsphere-stemcell
+  type: s3
+  source:
+    regexp: bosh-stemcell-(.*)-vsphere-esxi-ubuntu-trusty-go_agent\.tgz
+    bucket: {{s3-bucket}}
+    access_key_id: {{s3-access-key-id}}
+    secret_access_key: {{s3-secret-access-key}}
 
 - name: light-stemcell
   type: s3
   source:
-      regexp: light-bosh-stemcell-\d+-softlayer-.*\.tgz
-      bucket: {{s3-bucket}}
-      access_key_id: {{s3-access-key-id}}
-      secret_access_key: {{s3-secret-access-key}}
+    regexp: light-bosh-stemcell-\d+-softlayer-.*\.tgz
+    bucket: {{s3-bucket}}
+    access_key_id: {{s3-access-key-id}}
+    secret_access_key: {{s3-secret-access-key}}
 
 - name: bosh-softlayer-cpi-release
   type: git
@@ -161,8 +169,11 @@ jobs:
         BOSH_VAGRANT_KEY_PATH: ../../bosh-softlayer-private/bosh.pem
         AWS_ACCESS_KEY: {{BOSH_AWS_ACCESS_KEY_ID}}
         AWS_SECRET_KEY: {{BOSH_AWS_SECRET_ACCESS_KEY}}
-  - put: stemcell-version
-    params: {from: out/stemcell-version}
+  - aggregate:
+    - put: stemcell-version
+      params: {from: out/stemcell-version}
+    - put: vsphere-stemcell
+      params: {from: out/bosh-stemcell-.*-vsphere-.*\.tgz}
 
 - name: convert-stemcell
   plan:
