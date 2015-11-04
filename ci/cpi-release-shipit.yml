@@ -7,7 +7,7 @@ inputs:
   - name: bosh-softlayer-cpi-release
   - name: bosh-softlayer-stemcells
   - name: bosh-softlayer-cpi
-    path: src/bosh-softlayer-cpi
+    path: bosh-softlayer-cpi-release/src/bosh-softlayer-cpi
   - name: version
 
 run:
