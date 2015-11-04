@@ -5,7 +5,6 @@
 
   echo -e "\n Get stemcell version..."
   STEMCELL_VERSION=`cat stemcell-version/stemcell-version`
-  echo $STEMCELL_VERSION
 
   pushd s3-vsphere-stemcell
     echo -e "\n Unpacking tgz..."
