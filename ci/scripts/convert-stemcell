@@ -6,11 +6,9 @@
   echo -e "\n Get stemcell version..."
   STEMCELL_VERSION=`cat stemcell-version/stemcell-version`
 
-  pushd s3-vsphere-stemcell
-    echo -e "\n Unpacking tgz..."
-    tar zxf s3-vsphere-stemcell/*.tgz
-    tar zxf image
-  popd
+  echo -e "\n Unpacking tgz..."
+  tar zxf s3-vsphere-stemcell/*.tgz
+  tar zxf image
 
   echo -e "\n Converting vmdk to vhd..."
   VBoxManage clonehd *.vmdk --format VHD bosh-stemcell-${STEMCELL_VERSION}-softlayer.vhd
