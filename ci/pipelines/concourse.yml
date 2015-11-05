@@ -309,6 +309,8 @@ jobs:
         SL_USERNAME: {{SL_USERNAME}}
         SL_API_KEY: {{SL_API_KEY}}
         SL_DATACENTER: {{SL_DATACENTER}}
+        SL_VLAN_PUBLIC: {{SL_VLAN_PUBLIC}}
+        SL_VLAN_PRIVATE: {{SL_VLAN_PRIVATE}}
 
 - name: generate-bat-release
   plan:

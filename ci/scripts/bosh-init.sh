@@ -41,14 +41,14 @@ resource_pools:
     StartCpus: 4
     MaxMemory: 8192
     Datacenter:
-      Name: lon02
+      Name: $SL_DATACENTER
     HourlyBillingFlag: true
     PrimaryNetworkComponent:
       NetworkVlan:
-        Id: 524956
+        Id: $SL_VLAN_PUBLIC
     PrimaryBackendNetworkComponent:
       NetworkVlan:
-        Id: 524954
+        Id: $SL_VLAN_PRIVATE
     NetworkComponents:
     - MaxSpeed: 1000
 
