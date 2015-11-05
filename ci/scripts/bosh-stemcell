@@ -30,7 +30,7 @@
   vagrant scp remote:/bosh/tmp/files.md5 $OUTPUT_DIR
   vagrant scp remote:/bosh/tmp/*.tgz $OUTPUT_DIR
   pushd $OUTPUT_DIR
-    md5sum *.tgz | diff files.md5
+    md5sum *.tgz | diff files.md5 -
   popd
 
   echo $STEMCELL_VERSION > $OUTPUT_DIR/stemcell-version
