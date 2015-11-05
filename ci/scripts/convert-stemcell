@@ -8,7 +8,7 @@
 
   pushd s3-vsphere-stemcell
     echo -e "\n Unpacking tgz..."
-    tar zxf s3-vsphere-stemcell/bosh-stemcell-*-vsphere-*.tgz
+    tar zxf s3-vsphere-stemcell/*.tgz
     tar zxf image
   popd
 
