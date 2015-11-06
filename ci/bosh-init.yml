@@ -5,7 +5,7 @@ image: docker:///karafelix/bosh-init
 inputs:
   - name: bosh-agent
   - name: final-release
-  - name: sl-bosh-release
+  - name: bosh-release
   - name: bosh-softlayer-stemcells
   - name: light-stemcell
 

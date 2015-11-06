@@ -11,7 +11,7 @@ pushd final-release
     CPI_RELEASE=$PWD/`ls *.tgz`
 popd
 
-pushd sl-bosh-release
+pushd bosh-release
     BOSH_RELEASE=$PWD/`ls *.tgz`
 popd
 

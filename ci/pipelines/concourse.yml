@@ -143,14 +143,6 @@ resources:
   source:
     interval: 336h
 
-- name: sl-bosh-release
-  type: s3
-  source:
-    bucket: {{s3-bucket}}
-    versioned_file: sl-bosh.tgz
-    access_key_id: {{s3-access-key-id}}
-    secret_access_key: {{s3-secret-access-key}}
-
 jobs:
 - name: bosh-stemcell
   plan:
@@ -281,22 +273,11 @@ jobs:
   - put: light-stemcell
     params: {from: .*\.tgz}
 
-- name: generate-sl-bosh-release
-  plan:
-  - aggregate:
-    - get: bosh
-    - get: bosh-softlayer-stemcells
-  - task: generate-sl-bosh-release
-    file: bosh-softlayer-stemcells/ci/generate-sl-bosh-release.yml
-  - put: sl-bosh-release
-    params: {from: out/.*\.tgz}
-
 - name: bosh-init
   plan:
   - aggregate:
     - get: bosh-softlayer-stemcells
-    - get: sl-bosh-release
-      passed: [generate-sl-bosh-release]
+    - get: bosh-release
     - get: light-stemcell
       passed: [create-light-stemcell]
     - get: bosh-agent
@@ -468,7 +449,6 @@ groups:
   - sl-go-integration
   - cleanup-stemcells
   - remove-expiration-tag
-  - generate-sl-bosh-release
   - bosh-init
   - generate-bat-release
   - bats
@@ -506,6 +486,5 @@ groups:
 
 - name: bosh-init
   jobs:
-  - generate-sl-bosh-release
   - bosh-init
   - bats
