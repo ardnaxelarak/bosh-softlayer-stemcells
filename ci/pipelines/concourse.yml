@@ -289,9 +289,9 @@ jobs:
       params:
         SL_USERNAME: {{SL_USERNAME}}
         SL_API_KEY: {{SL_API_KEY}}
-        SL_DATACENTER: {{SL_DATACENTER}}
-        SL_VLAN_PUBLIC: {{SL_VLAN_PUBLIC}}
-        SL_VLAN_PRIVATE: {{SL_VLAN_PRIVATE}}
+        SL_DATACENTER: {{BOSH_INIT_DATACENTER}}
+        SL_VLAN_PUBLIC: {{BOSH_INIT_VLAN_PUBLIC}}
+        SL_VLAN_PRIVATE: {{BOSH_INIT_VLAN_PRIVATE}}
 
 - name: generate-bat-release
   plan:
