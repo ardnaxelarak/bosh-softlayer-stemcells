@@ -4,8 +4,6 @@ image: docker:///karafelix/bosh-stemcell
 
 inputs:
   - name: bosh
-  - name: bosh-agent
-    path: bosh/go/src/github.com/cloudfoundry/bosh-agent
   - name: bosh-softlayer-stemcells
   - name: bosh-softlayer-private
   - name: vsphere-stemcell

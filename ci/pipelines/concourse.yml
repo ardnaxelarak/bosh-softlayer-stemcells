@@ -14,7 +14,7 @@ resources:
 - name: bosh-agent
   type: git
   source:
-    uri: git@github.com:mattcui/bosh-agent.git
+    uri: git@github.com:karafelix/bosh-agent.git
     branch: bm_beta
     private_key: {{private-repo-key}}
 
