@@ -152,6 +152,7 @@ jobs:
     - get: bosh-softlayer-private
     - get: vsphere-stemcell
       trigger: true
+  - get: bosh-agent
   - task: bosh-stemcell
     file: bosh-softlayer-stemcells/ci/bosh-stemcell.yml
     config:
@@ -280,7 +281,6 @@ jobs:
     - get: bosh-release
     - get: light-stemcell
       passed: [create-light-stemcell]
-    - get: bosh-agent
     - get: final-release
       passed: [cpi-release-shipit]
   - task: bosh-init
