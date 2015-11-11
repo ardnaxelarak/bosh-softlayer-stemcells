@@ -15,7 +15,7 @@ resources:
   type: git
   source:
     uri: git@github.com:karafelix/bosh-agent.git
-    branch: bm_beta
+    branch: master
     private_key: {{private-repo-key}}
 
 - name: bats
