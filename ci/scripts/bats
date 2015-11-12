@@ -7,7 +7,7 @@ pushd light-stemcell
     STEMCELL_PATH=$PWD/$LIGHT_STEMCELL
 popd
 
-cp bosh-softlayer-stemcells/templates/softlayer.yml.erb bats/templates/
+template=$PWD/bosh-softlayer-stemcells/templates/softlayer.yml.erb
 
 cd bats
 ./write_gemfile
@@ -26,6 +26,7 @@ spec_path=$PWD/bat.spec
 cat > $spec_path << EOF
 ---
 cpi: softlayer
+manifest_template_path: $template
 properties:
   static_ip: 10.244.0.2
   uuid: $director_uuid
