@@ -178,11 +178,11 @@ cloud_provider:
     cpi:
       agent:
         mbus: https://admin:admin@127.0.0.1:6868
-      ntp: *ntp
-      blobstore:
-        provider: local
-        options:
-          blobstore_path: /var/vcap/micro_bosh/data/cache
+        ntp: *ntp
+        blobstore:
+          provider: local
+          options:
+            blobstore_path: /var/vcap/micro_bosh/data/cache
 EOF
 
 echo $PATH
