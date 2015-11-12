@@ -8,7 +8,7 @@ inputs:
   - name: bosh-softlayer-private
   - name: vsphere-stemcell
   - name: bosh-agent
-    path: bosh/go/src/github.com/cloudfoundry/bosh-agent
+  #path: bosh/go/src/github.com/cloudfoundry/bosh-agent
 
 run:
   path: bosh-softlayer-stemcells/ci/scripts/bosh-stemcell

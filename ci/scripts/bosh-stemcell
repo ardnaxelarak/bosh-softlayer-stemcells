@@ -25,6 +25,7 @@
     CANDIDATE_BUILD_NUMBER=${STEMCELL_VERSION} bundle exec rake stemcell:build[vsphere,esxi,ubuntu,trusty,go,bosh-os-images,bosh-ubuntu-trusty-os-image.tgz]
     cd tmp
     md5sum *.tgz > files.md5
+    ls /bosh
   " remote
 
   vagrant scp remote:/bosh/tmp/files.md5 $OUTPUT_DIR
