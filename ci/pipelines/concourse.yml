@@ -15,7 +15,7 @@ resources:
   type: git
   source:
     uri: git@github.com:karafelix/bosh-agent.git
-    branch: master
+    branch: bm_beta
     private_key: {{private-repo-key}}
 
 - name: bats
@@ -148,11 +148,15 @@ jobs:
   plan:
   - aggregate:
     - get: bosh
+      params:
+        submodules:
+        - go/src/github.com/cloudfoundry/bosh-davcli
+        - bat
     - get: bosh-softlayer-stemcells
     - get: bosh-softlayer-private
     - get: vsphere-stemcell
       trigger: true
-  - get: bosh-agent
+    - get: bosh-agent
   - task: bosh-stemcell
     file: bosh-softlayer-stemcells/ci/bosh-stemcell.yml
     config:
