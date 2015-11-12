@@ -36,8 +36,6 @@
 
   echo $STEMCELL_VERSION > $OUTPUT_DIR/stemcell-version
 
-  exit 1
-
   echo -e "\n Terminating VM"
   ec2-describe-instances --filter "key-name=bosh" | grep instance | awk '{print $3}' | xargs ec2-terminate-instances
 )
