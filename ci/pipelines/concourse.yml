@@ -29,7 +29,7 @@ resources:
   type: git
   source:
     uri: git@github.com:karafelix/bosh-softlayer-cpi.git
-    branch: kara_updates
+    branch: jianqiu_changes
     private_key: {{private-repo-key}}
 
 - name: bat-release-artifact
