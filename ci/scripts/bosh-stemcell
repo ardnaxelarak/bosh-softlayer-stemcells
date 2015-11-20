@@ -22,7 +22,7 @@
   echo -e "\n Build stemcell, then upload to S3 bucket..."
   vagrant ssh -c "
     cd /bosh
-    CANDIDATE_BUILD_NUMBER=${STEMCELL_VERSION} bundle exec rake stemcell:build[softlayer,esxi,ubuntu,trusty,go,bosh-os-images,bosh-ubuntu-trusty-os-image.tgz]
+    CANDIDATE_BUILD_NUMBER=${STEMCELL_VERSION} bundle exec rake stemcell:build[vsphere,esxi,ubuntu,trusty,go,bosh-os-images,bosh-ubuntu-trusty-os-image.tgz]
     cd tmp
     md5sum *.tgz > files.md5
   " remote
