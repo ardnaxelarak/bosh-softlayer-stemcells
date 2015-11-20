@@ -2,21 +2,14 @@ resources:
 - name: bosh
   type: git
   source:
-    uri: git@github.com:cloudfoundry/bosh.git
-    branch: master
+    uri: git@github.com:jianqiu/bosh.git
+    branch: softlayer_stemcell
     private_key: {{private-repo-key}}
 
 - name: bosh-release
   type: bosh-io-release
   source:
     repository: cloudfoundry/bosh
-
-- name: bosh-agent
-  type: git
-  source:
-    uri: git@github.com:karafelix/bosh-agent.git
-    branch: bm_beta
-    private_key: {{private-repo-key}}
 
 - name: bats
   type: git
@@ -43,7 +36,7 @@ resources:
 - name: s3-vsphere-stemcell
   type: s3
   source:
-    regexp: bosh-stemcell-(.*)-vsphere-esxi-ubuntu-trusty-go_agent\.tgz
+    regexp: bosh-stemcell-(.*)-softlayer-hyperv-ubuntu-trusty-go_agent\.tgz
     bucket: {{s3-bucket}}
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
@@ -137,6 +130,7 @@ resources:
   type: bosh-io-stemcell
   source:
     name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
+    tarball: false
 
 - name: timer-2weeks
   type: time
@@ -148,15 +142,10 @@ jobs:
   plan:
   - aggregate:
     - get: bosh
-      params:
-        submodules:
-        - go/src/github.com/cloudfoundry/bosh-davcli
-        - bat
     - get: bosh-softlayer-stemcells
     - get: bosh-softlayer-private
     - get: vsphere-stemcell
       trigger: true
-    - get: bosh-agent
   - task: bosh-stemcell
     file: bosh-softlayer-stemcells/ci/bosh-stemcell.yml
     config:
@@ -170,7 +159,7 @@ jobs:
     - put: stemcell-version
       params: {from: out/stemcell-version}
     - put: s3-vsphere-stemcell
-      params: {from: out/bosh-stemcell-.*-vsphere-.*\.tgz}
+      params: {from: out/bosh-stemcell-.*-softlayer-.*\.tgz}
 
 - name: convert-stemcell
   plan:

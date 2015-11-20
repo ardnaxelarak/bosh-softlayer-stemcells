@@ -1,9 +1,9 @@
 ---
 platform: linux
-image: docker:///posijon/slci
+image: docker:///karafelix/bosh-stemcell
 
 inputs:
-  - name: bosh-src
+  - name: bosh
   - name: bosh-softlayer-stemcells
   - name: bosh-softlayer-private
   - name: vsphere-stemcell
