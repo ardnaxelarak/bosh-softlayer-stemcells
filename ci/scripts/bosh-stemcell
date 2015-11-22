@@ -25,6 +25,7 @@
     bundle
     export CANDIDATE_BUILD_NUMBER=$STEMCELL_VERSION
     export STEMCELL_BUILD_NUMBER=$STEMCELL_VERSION
+    echo $STEMCELL_VERSION
     bundle exec rake stemcell:build[softlayer,hyperv,ubuntu,trusty,go,bosh-os-images,bosh-ubuntu-trusty-os-image.tgz]
     cd tmp
     md5sum *.tgz > files.md5
