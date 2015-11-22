@@ -2,7 +2,7 @@ resources:
 - name: bosh
   type: git
   source:
-    uri: git@github.com:jianqiu/bosh.git
+    uri: https://github.com/jianqiu/bosh.git
     branch: softlayer_stemcell
     private_key: {{private-repo-key}}
 
@@ -114,7 +114,7 @@ resources:
   type: s3
   source:
     bucket: {{s3-bucket}}
-    regexp: bosh-stemcell-(.*)-vsphere-(.*).tgz
+    regexp: bosh-stemcell-(.*)-softlayer-(.*).tgz
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
 
