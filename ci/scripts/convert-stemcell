@@ -11,6 +11,10 @@
   tar zxf image
 
   ls -la
+
+  mv root.vhd bosh-stemcell-${STEMCELL_VERSION}-softlayer.vhd
+
+  ls -la
   #echo -e "\n Converting vmdk to vhd..."
   #VBoxManage clonehd *.vmdk --format VHD bosh-stemcell-${STEMCELL_VERSION}-softlayer.vhd
 
