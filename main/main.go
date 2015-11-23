@@ -189,7 +189,7 @@ func init() {
 	flag.StringVar(&options.VersionFlag, "version", "", "the light stemcell version")
 	flag.StringVar(&options.StemcellInfoFilenameFlag, "stemcell-info-filename", "", "the path and filename to a JSON file containing the ID & UUID for a SoftLayer stemcell ")
 	flag.StringVar(&options.InfrastructureFlag, "infrastructure", "softlayer", "the light stemcell infrastructure, defaults to softlayer")
-	flag.StringVar(&options.HypervisorFlag, "hypervisor", "esxi", "the light stemcell version")
+	flag.StringVar(&options.HypervisorFlag, "hypervisor", "hperv", "the light stemcell version")
 	flag.StringVar(&options.OsNameFlag, "os-name", "ubuntu-trusty", "the name of the operating system")
 
 	flag.StringVar(&options.NamePatternFlag, "name-pattern", "", "the pattern (regex) for the name of the stemcell")
@@ -227,7 +227,7 @@ usage: bosh-softlayer-stemcells -c <command> [--name <template-name>] [--note <i
   --version                 the light stemcell version
   --stemcell-info-filename  the path and filename to a JSON file containing the ID & UUID for a SoftLayer stemcell
   --infrastructure          the light stemcell infrastructure, defaults to softlayer
-  --hypervisor              the light stemcell version, defaults to esxi
+  --hypervisor              the light stemcell version, defaults to hyperv
   --os-name                 the name of the operating system, defaults to ubuntu-trusty
 
   CLEANUP-STEMCELLS:
