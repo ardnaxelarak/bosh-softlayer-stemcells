@@ -24,7 +24,7 @@ get_ip_from_vagrant_ssh_config() {
 
 build_num=`cat vsphere-stemcell/version`
 
-cd bosh-src
+cd bosh
 
 # todo check out correct version of bosh-src for that stemcell
 # git checkout stable-${build_num}
@@ -33,7 +33,7 @@ cd bosh-src
 
 bundle
 
-cd bosh-stemcell
+cd bosh
 
 set_up_vagrant_private_key
 
