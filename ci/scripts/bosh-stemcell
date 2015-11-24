@@ -33,7 +33,7 @@ cd bosh
 
 bundle
 
-cd bosh
+cd bosh-stemcell
 
 set_up_vagrant_private_key
 
