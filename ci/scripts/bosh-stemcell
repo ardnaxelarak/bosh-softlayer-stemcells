@@ -40,7 +40,7 @@ set_up_vagrant_private_key
 vagrant up remote --provider=aws
 
 vagrant ssh -c "
-  sudo apt-get install ntp
+  sudo DEBIAN_FRONTEND=noninteractive apt-get -y install ntp
   0 > /etc/ntp.conf
   cat <<_EOF_> /etc/ntp.conf
    server 0.amazon.pool.ntp.org iburst
@@ -48,7 +48,7 @@ vagrant ssh -c "
    server 2.amazon.pool.ntp.org iburst
    server 3.amazon.pool.ntp.org iburst
   _EOF_
-  service ntpd restart
+  sudo service ntpd restart
   cd /bosh
   bundle
   export CANDIDATE_BUILD_NUMBER=$build_num
