@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e -x
 
@@ -22,9 +22,9 @@ get_ip_from_vagrant_ssh_config() {
   echo $(echo "$config" | grep HostName | awk '{print $2}')
 }
 
-build_num=`cat vsphere-stemcell/version`
+build_num=$(cat stemcell-version/number | cut -f1 -d.)
 
-cd bosh
+cd bosh-src
 
 # todo check out correct version of bosh-src for that stemcell
 # git checkout stable-${build_num}
@@ -40,15 +40,6 @@ set_up_vagrant_private_key
 vagrant up remote --provider=aws
 
 vagrant ssh -c "
-  sudo apt-get install ntp
-  0 > /etc/ntp.conf
-  cat <<_EOF_> /etc/ntp.conf
-   server 0.amazon.pool.ntp.org iburst
-   server 1.amazon.pool.ntp.org iburst
-   server 2.amazon.pool.ntp.org iburst
-   server 3.amazon.pool.ntp.org iburst
-  _EOF_
-  service ntpd restart
   cd /bosh
   bundle
   export CANDIDATE_BUILD_NUMBER=$build_num
@@ -57,9 +48,6 @@ vagrant ssh -c "
 
 builder_ip=$(get_ip_from_vagrant_ssh_config)
 
-mkdir out
-OUTPUT_DIR=$PWD/out
+mkdir ../../out
 
-scp ubuntu@${builder_ip}:/bosh/tmp/*.tgz $OUTPUT_DIR
-
-echo $build_num > $OUTPUT_DIR/stemcell-version
+scp ubuntu@${builder_ip}:/mnt/stemcells/$IAAS/$HYPERVISOR/$OS_NAME/work/work/*.tgz ../../out/
