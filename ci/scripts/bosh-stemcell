@@ -14,8 +14,7 @@ set_up_vagrant_private_key() {
 }
 
 clean_vagrant() {
-#  vagrant destroy remote -f || true
-echo "destroy vm"
+  vagrant destroy remote -f || true
 }
 
 get_ip_from_vagrant_ssh_config() {

@@ -3,7 +3,7 @@ resources:
   type: git
   source:
     uri: https://github.com/jianqiu/bosh.git
-    branch: softlayer_stemcell
+    branch: softlayer_stemcell2
     private_key: {{private-repo-key}}
 
 - name: bosh-release
@@ -137,12 +137,21 @@ resources:
   source:
     interval: 336h
 
+- name: director-info
+  type: s3
+  source:
+    bucket: {{s3-bucket}}
+    versioned_file: director-info.json
+    access_key_id: {{s3-access-key-id}}
+    secret_access_key: {{s3-secret-access-key}}
+
 jobs:
 - name: bosh-stemcell
   plan:
   - aggregate:
     - get: bosh
     - get: bosh-softlayer-stemcells
+      trigger: true
     - get: bosh-softlayer-private
     - get: vsphere-stemcell
       trigger: true
@@ -150,11 +159,15 @@ jobs:
     file: bosh-softlayer-stemcells/ci/bosh-stemcell.yml
     config:
       params:
-        BOSH_AWS_ACCESS_KEY_ID: {{BOSH_AWS_ACCESS_KEY_ID}}
-        BOSH_AWS_SECRET_ACCESS_KEY: {{BOSH_AWS_SECRET_ACCESS_KEY}}
-        BOSH_VAGRANT_KEY_PATH: ../../bosh-softlayer-private/bosh.pem
-        AWS_ACCESS_KEY: {{BOSH_AWS_ACCESS_KEY_ID}}
-        AWS_SECRET_KEY: {{BOSH_AWS_SECRET_ACCESS_KEY}}
+        BOSH_AWS_ACCESS_KEY_ID:     {{aws_builder_access_key}}
+        BOSH_AWS_SECRET_ACCESS_KEY: {{aws_builder_secret_access_key}}
+        BOSH_AWS_SECURITY_GROUP:    {{aws_builder_sec_group}}
+        BOSH_KEYPAIR_NAME:          {{aws_builder_keypair_name}}
+        BOSH_PRIVATE_KEY:           {{aws_builder_private_key}}
+        IAAS: softlayer
+        HYPERVISOR: esxi
+        OS_NAME: ubuntu
+        OS_VERSION: trusty
   - aggregate:
     - put: stemcell-version
       params: {from: out/stemcell-version}
@@ -275,6 +288,7 @@ jobs:
     - get: bosh-softlayer-stemcells
     - get: bosh-release
     - get: light-stemcell
+      trigger: true
       passed: [create-light-stemcell]
     - get: final-release
       passed: [cpi-release-shipit]
@@ -287,6 +301,8 @@ jobs:
         SL_DATACENTER: {{BOSH_INIT_DATACENTER}}
         SL_VLAN_PUBLIC: {{BOSH_INIT_VLAN_PUBLIC}}
         SL_VLAN_PRIVATE: {{BOSH_INIT_VLAN_PRIVATE}}
+   - put: director-info
+      params: {from: bosh-init/director-info}
 
 - name: generate-bat-release
   plan:
@@ -341,7 +357,7 @@ jobs:
     config:
       params:
         SWIFT_USERNAME: {{SWIFT_USERNAME}}
-        SWIFT_API_KEY:  {{SL_API_KEY}}
+        SWIFT_API_KEY:  {{SWIFT_API_KEY}}
         SWIFT_CLUSTER:  {{SWIFT_CLUSTER}}
         SWIFT_CONTAINER: {{SWIFT_CONTAINER}}
         S3_ACCESS_KEY:  {{s3-access-key-id}}

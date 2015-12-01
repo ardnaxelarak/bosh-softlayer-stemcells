@@ -40,6 +40,7 @@ resource_pools:
     Domain: softlayer.com
     StartCpus: 4
     MaxMemory: 8192
+    EphemeralDiskSize: 100
     Datacenter:
       Name: $SL_DATACENTER
     HourlyBillingFlag: true
@@ -191,3 +192,5 @@ cd bosh-init
 
 echo "setting deploment..."
 bosh-init deploy $dep_spec
+
+cat /etc/hosts | grep "bosh-experimental.softlayer.com" | awk '{print $1}' >> director-info
