@@ -141,7 +141,7 @@ resources:
   type: s3
   source:
     bucket: {{s3-bucket}}
-    versioned_file: director-info.json
+    versioned_file: director-info
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
 
@@ -301,8 +301,8 @@ jobs:
         SL_DATACENTER: {{BOSH_INIT_DATACENTER}}
         SL_VLAN_PUBLIC: {{BOSH_INIT_VLAN_PUBLIC}}
         SL_VLAN_PRIVATE: {{BOSH_INIT_VLAN_PRIVATE}}
-   - put: director-info
-      params: {from: bosh-init/director-info}
+  - put: director-info
+    params: {from: bosh-init/director-info}
 
 - name: generate-bat-release
   plan:
