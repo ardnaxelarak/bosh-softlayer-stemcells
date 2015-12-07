@@ -36,7 +36,7 @@ resource_pools:
   stemcell:
     url: file://$STEMCELL_PATH
   cloud_properties:
-    Hostname: bosh-experimental
+    VmNamePrefix: bosh-experimental
     Domain: softlayer.com
     StartCpus: 4
     MaxMemory: 8192
