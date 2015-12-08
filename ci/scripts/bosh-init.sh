@@ -2,6 +2,8 @@
 
 set -e
 
+STEMCELL_VERSION=`cat stemcell-version/stemcell-version`
+
 pushd light-stemcell
     LIGHT_STEMCELL=`ls *.tgz`
     STEMCELL_PATH=$PWD/$LIGHT_STEMCELL
@@ -35,6 +37,7 @@ resource_pools:
   network: default
   stemcell:
     url: file://$STEMCELL_PATH
+    version: $STEMCELL_VERSION
   cloud_properties:
     VmNamePrefix: bosh-experimental
     Domain: softlayer.com
