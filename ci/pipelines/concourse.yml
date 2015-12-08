@@ -301,6 +301,7 @@ jobs:
     - get: bosh-softlayer-cpi-final-release
       passed: [bosh-init]
     - get: bosh-softlayer-stemcells
+      trigger: true
     - get: bosh
     - get: light-stemcell
       passed: [bosh-init]
