@@ -21,6 +21,6 @@
   filename="bosh-softlayer-cpi-release"
 
   echo -e "\n Uploading to S3 bucket: "
-  s3cmd put bosh-softlayer-cpi-final-release/"$filename-$version.tgz" s3://bosh-softlayer-cpi-stemcells --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
+  s3cmd put bosh-softlayer-cpi-final-release/"$filename-$version.tgz" s3://wjq-bosh-softlayer-cpi-stemcells --access_key=$S3_ACCESS_KEY --secret_key=$S3_SECRET_KEY
 
 )

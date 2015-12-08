@@ -3,6 +3,7 @@ platform: linux
 image: docker:///karafelix/bats
 
 inputs:
+  - name: bosh-softlayer-cpi-final-release
   - name: bosh-softlayer-stemcells
   - name: light-stemcell
   - name: bosh

@@ -279,6 +279,10 @@ jobs:
       trigger: true
     - get: stemcell-version
       passed: [create-light-stemcell]
+    - get: stemcell-info
+      passed: [create-light-stemcell]
+    - get: version
+      passed: [cpi-release-shipit]
   - task: bosh-init
     file: bosh-softlayer-stemcells/ci/bosh-init.yml
     config:
@@ -294,6 +298,8 @@ jobs:
 - name: bats
   plan:
   - aggregate:
+    - get: bosh-softlayer-cpi-final-release
+      passed: [bosh-init]
     - get: bosh-softlayer-stemcells
     - get: bosh
     - get: light-stemcell
@@ -301,10 +307,14 @@ jobs:
       trigger: true
     - get: stemcell-version
       trigger: true
-      passed: [create-light-stemcell]
+      passed: [bosh-init]
+    - get: stemcell-info
+      passed: [bosh-init]
     - get: director-info
       passed: [bosh-init]
       trigger: true
+    - get: version
+      passed: [bosh-init]
   - task: bats
     file: bosh-softlayer-stemcells/ci/bats.yml
 
@@ -390,11 +400,11 @@ jobs:
   - get: bosh-softlayer-stemcells
     passed: [bats]
   - get: bosh-softlayer-cpi-final-release
-    passed: [cpi-release-shipit]
+    passed: [bats]
   - get: version
-    passed: [cpi-release-shipit]
+    passed: [bats]
   - get: stemcell-info
-    passed: [create-light-stemcell]
+    passed: [bats]
   - task: shipit-stemcells-and-cpi
     file: bosh-softlayer-stemcells/ci/shipit.yml
     config:
