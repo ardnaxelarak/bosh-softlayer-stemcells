@@ -34,6 +34,7 @@ type CloudProperties struct {
 	Infrastructure string `json:"infrastructure" yaml:"infrastructure"`
 	Architecture   string `json:"architecture" yaml:"architecture"`
 	RootDeviceName string `json:"root_device_name" yaml:"root_device_name"`
+	Version        string `json:"version" yaml:"version"`
 
 	//SoftLayer-specific properties
 	VirtualDiskImageId   int    `json:"virtual-disk-image-id" yaml:"virtual-disk-image-id"`

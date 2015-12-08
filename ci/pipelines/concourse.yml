@@ -14,25 +14,17 @@ resources:
 - name: bats
   type: git
   source:
-    uri: git@github.com:cloudfoundry/bosh-acceptance-tests.git
+    uri: git@github.com:jianqiu/bosh-acceptance-tests.git
     branch: master
     private_key: {{private-repo-key}}
 
 - name: bosh-softlayer-cpi
   type: git
   source:
-    uri: git@github.com:karafelix/bosh-softlayer-cpi.git
-    branch: jianqiu_update
+    uri: https://github.com/jianqiu/bosh-softlayer-cpi.git
+    branch: for-file-registry
     private_key: {{private-repo-key}}
 
-- name: bat-release-artifact
-  type: s3
-  source:
-    regexp: bat\.tgz
-    bucket: {{s3-bucket}}
-    access_key_id: {{s3-access-key-id}}
-    secret_access_key: {{s3-secret-access-key}}
- 
 - name: s3-vsphere-stemcell
   type: s3
   source:
@@ -52,7 +44,7 @@ resources:
 - name: bosh-softlayer-cpi-release
   type: git
   source:
-    uri: git@github.com:maximilien/bosh-softlayer-cpi-release.git
+    uri: git@github.com:jianqiu/bosh-softlayer-cpi-release.git
     branch: master
     private_key: {{private-repo-key}}
 
@@ -60,7 +52,7 @@ resources:
   type: git
   source:
     uri: git@github.com:maximilien/bosh-softlayer-private.git
-    branch: master
+    branch: jianqiu
     private_key: {{private-repo-key}}
 
 - name: bosh-softlayer-stemcells
@@ -151,7 +143,6 @@ jobs:
   - aggregate:
     - get: bosh
     - get: bosh-softlayer-stemcells
-      trigger: true
     - get: bosh-softlayer-private
     - get: vsphere-stemcell
       trigger: true
@@ -304,39 +295,16 @@ jobs:
   - put: director-info
     params: {from: bosh-init/director-info}
 
-- name: generate-bat-release
-  plan:
-  - aggregate:
-    - get: bosh-softlayer-stemcells
-    - get: bats
-  - task: generate-bat-release
-    file: bosh-softlayer-stemcells/ci/generate-bat-release.yml
-  - put: bat-release-artifact
-    params: {from: out/.*\.tgz}
-
 - name: bats
   serial: true
   plan:
   - aggregate:
     - get: bosh-softlayer-stemcells
     - get: bats
-    - get: bosh-release
-    - get: final-release
-      passed: [cpi-release-shipit]
-      trigger: true
+    - get: bosh
     - get: light-stemcell
       passed: [create-light-stemcell]
       trigger: true
-    - get: bat-release-artifact
-      passed: [generate-bat-release]
-  - try:
-      task: upload-bat-release
-      file: bosh-softlayer-stemcells/ci/upload-bat-release.yml
-      config:
-        params:
-          director_target: {{director_target}}
-          director_user: {{director_user}}
-          director_password: {{director_password}}
   - task: bats
     file: bosh-softlayer-stemcells/ci/bats.yml
     config:
@@ -418,7 +386,6 @@ jobs:
   plan:
   - get: bosh-softlayer-stemcells
   - get: timer-2weeks
-    trigger: true
   - task: cleanup-stemcells-VGBTG
     file: bosh-softlayer-stemcells/ci/cleanup-stemcells.yml
     config:
@@ -463,7 +430,6 @@ groups:
   - cleanup-stemcells
   - remove-expiration-tag
   - bosh-init
-  - generate-bat-release
   - bats
   - shipit
 

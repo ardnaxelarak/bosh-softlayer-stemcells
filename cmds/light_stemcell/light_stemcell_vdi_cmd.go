@@ -192,6 +192,7 @@ func (cmd *LightStemcellVDICmd) buildLightStemcellWithVirtualDiskImage(virtualDi
 		Sha1:         base64.StdEncoding.EncodeToString(sha1.New().Sum([]byte(fmt.Sprintf("%d:%s", virtualDiskImage.Id, virtualDiskImage.Uuid)))),
 		CloudProperties: CloudProperties{
 			Infrastructure:       cmd.lightStemcellInfo.Infrastructure,
+			Version:              cmd.lightStemcellInfo.Version,
 			Architecture:         cmd.lightStemcellInfo.Architecture,
 			RootDeviceName:       cmd.lightStemcellInfo.RootDeviceName,
 			VirtualDiskImageId:   virtualDiskImage.Id,

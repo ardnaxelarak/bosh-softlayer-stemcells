@@ -42,6 +42,7 @@ var _ = Describe("light_stemcell_helper", func() {
 				Infrastructure: "fake-infrastructure",
 				Architecture:   "fake-architecture",
 				RootDeviceName: "/fake/root/device",
+				Version:        "fake-version",
 
 				VirtualDiskImageId:   12345,
 				VirtualDiskImageUuid: "fake-uuid",

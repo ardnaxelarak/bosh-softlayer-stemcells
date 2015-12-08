@@ -188,6 +188,7 @@ func (cmd *LightStemcellVGBDTGCmd) buildLightStemcellWithVirtualGuestBlockDevice
 		CloudProperties: CloudProperties{
 			Infrastructure:       cmd.lightStemcellInfo.Infrastructure,
 			Architecture:         cmd.lightStemcellInfo.Architecture,
+			Version:              cmd.lightStemcellInfo.Version,
 			RootDeviceName:       cmd.lightStemcellInfo.RootDeviceName,
 			VirtualDiskImageId:   vgdtgGroup.Id,
 			VirtualDiskImageUuid: vgdtgGroup.GlobalIdentifier,
