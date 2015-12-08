@@ -11,13 +11,6 @@ resources:
   source:
     repository: cloudfoundry/bosh
 
-- name: bats
-  type: git
-  source:
-    uri: git@github.com:jianqiu/bosh-acceptance-tests.git
-    branch: master
-    private_key: {{private-repo-key}}
-
 - name: bosh-softlayer-cpi
   type: git
   source:
@@ -263,7 +256,7 @@ jobs:
       trigger: true
       passed: [import-stemcell]
     - get: stemcell-version
-    passed: [import-stemcell]
+      passed: [import-stemcell]
   - task: create-light-stemcell
     file: bosh-softlayer-stemcells/ci/create-light-stemcell.yml
     config:
@@ -284,6 +277,8 @@ jobs:
     - get: bosh-softlayer-cpi-final-release
       passed: [cpi-release-shipit]
       trigger: true
+    - get: stemcell-version
+      passed: [create-light-stemcell]
   - task: bosh-init
     file: bosh-softlayer-stemcells/ci/bosh-init.yml
     config:
@@ -297,15 +292,14 @@ jobs:
     params: {from: bosh-init/director-info}
 
 - name: bats
-  serial: true
   plan:
   - aggregate:
     - get: bosh-softlayer-stemcells
     - get: bosh
     - get: light-stemcell
-      passed: [create-light-stemcell]
+      passed: [bosh-init]
       trigger: true
-    - name: stemcell-version
+    - get: stemcell-version
       trigger: true
       passed: [create-light-stemcell]
     - get: director-info

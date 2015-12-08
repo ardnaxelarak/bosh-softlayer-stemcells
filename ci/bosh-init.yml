@@ -7,6 +7,7 @@ inputs:
   - name: bosh-release
   - name: bosh-softlayer-stemcells
   - name: light-stemcell
+  - name: stemcell-version
 
 run:
   path: bosh-softlayer-stemcells/ci/scripts/bosh-init.sh
