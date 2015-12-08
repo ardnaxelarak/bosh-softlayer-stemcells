@@ -70,7 +70,7 @@ resources:
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
 
-- name: final-release
+- name: bosh-softlayer-cpi-final-release
   type: s3
   source:
     regexp: bosh-softlayer-cpi-release-(.*).tgz
@@ -249,7 +249,7 @@ jobs:
   - task: create-final-release
     file: bosh-softlayer-stemcells/ci/cpi-release-shipit.yml
   - aggregate:  
-    - put: final-release
+    - put: bosh-softlayer-cpi-final-release
       params: {from: create-final-release/bosh-softlayer-cpi-release-.*.tgz}
     - put: version
       params: {file: version/number}
@@ -281,8 +281,9 @@ jobs:
     - get: light-stemcell
       trigger: true
       passed: [create-light-stemcell]
-    - get: final-release
+    - get: bosh-softlayer-cpi-final-release
       passed: [cpi-release-shipit]
+      trigger: true
   - task: bosh-init
     file: bosh-softlayer-stemcells/ci/bosh-init.yml
     config:
@@ -300,25 +301,22 @@ jobs:
   plan:
   - aggregate:
     - get: bosh-softlayer-stemcells
-    - get: bats
     - get: bosh
     - get: light-stemcell
       passed: [create-light-stemcell]
       trigger: true
+    - name: stemcell-version
+      trigger: true
+      passed: [create-light-stemcell]
+    - get: director-info
+      passed: [bosh-init]
+      trigger: true
   - task: bats
     file: bosh-softlayer-stemcells/ci/bats.yml
-    config:
-      params:
-        SL_USERNAME: {{SL_USERNAME}}
-        SL_API_KEY: {{SL_API_KEY}}
-        director_target: {{director_target}}
-        director_user: {{director_user}}
-        director_password: {{director_password}}
 
 - name: remove-expiration-tag
   plan:
   - get: bosh-softlayer-stemcells
-    trigger: true
     passed: [shipit]
   - task: remove-expiration-tag-vhd
     file: bosh-softlayer-stemcells/ci/remove-expiration.yml
@@ -397,7 +395,7 @@ jobs:
   plan:
   - get: bosh-softlayer-stemcells
     passed: [bats]
-  - get: final-release
+  - get: bosh-softlayer-cpi-final-release
     passed: [cpi-release-shipit]
   - get: version
     passed: [cpi-release-shipit]

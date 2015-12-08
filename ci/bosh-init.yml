@@ -3,7 +3,7 @@ platform: linux
 image: docker:///karafelix/bosh-init
 
 inputs:
-  - name: final-release
+  - name: bosh-softlayer-cpi-final-release
   - name: bosh-release
   - name: bosh-softlayer-stemcells
   - name: light-stemcell

@@ -7,7 +7,7 @@ pushd light-stemcell
     STEMCELL_PATH=$PWD/$LIGHT_STEMCELL
 popd
 
-pushd final-release
+pushd bosh-softlayer-cpi-final-release
     CPI_RELEASE=$PWD/`ls *.tgz`
 popd
 

@@ -4,11 +4,10 @@ image: docker:///karafelix/bats
 
 inputs:
   - name: bosh-softlayer-stemcells
-  - name: bats
-  - name: final-release
-  - name: bosh-release
   - name: light-stemcell
-  - name: bat-release-artifact
+  - name: bosh
+  - name: director-info
+  - name: stemcell-version
 
 run:
   path: bosh-softlayer-stemcells/ci/scripts/bats
