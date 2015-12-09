@@ -64,5 +64,5 @@ export BOSH_SOFTLAYER_MICROBOSH_IP=${BOSH_DIRECTOR}
 export BOSH_SOFTLAYER_BAT_DEPLOYMENT_SPEC=$spec_path
 
 echo "running BATS..."
-bundle exec rake spec:system:existing_micro[softlayer, esxi, ubuntu, trusty, dynamic, go, true, ovf]
+bundle exec rake spec:system:existing_micro[softlayer,esxi,ubuntu,trusty,dynamic,go,true,ovf]
 
