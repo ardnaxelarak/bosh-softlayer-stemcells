@@ -33,7 +33,7 @@ cd bosh-src
 
 bundle
 
-pushd bosh-cpi-release
+pushd bosh-src
 
 set_up_vagrant_private_key
 
