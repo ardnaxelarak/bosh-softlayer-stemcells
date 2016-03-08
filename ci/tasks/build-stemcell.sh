@@ -33,6 +33,8 @@ pushd bosh-src
 
 bundle
 
+cd bosh-stemcell
+
 set_up_vagrant_private_key
 
 vagrant up remote --provider=aws
