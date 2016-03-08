@@ -14,8 +14,8 @@ resources:
 - name: bosh-softlayer-cpi
   type: git
   source:
-    uri: https://github.com/jianqiu/bosh-softlayer-cpi.git
-    branch: for-file-registry
+    uri: https://github.com/mattcui/bosh-softlayer-cpi/
+    branch: bm_beta
     private_key: {{private-repo-key}}
 
 - name: s3-vsphere-stemcell
@@ -74,8 +74,8 @@ resources:
 - name: softlayer-go
   type: git
   source:
-    uri: git@github.com:maximilien/softlayer-go.git
-    branch: master
+    uri: https://github.com/jianqiu/softlayer-go.git
+    branch: jianqiu-master
     private_key: {{private-repo-key}}
 
 - name: version
@@ -138,7 +138,6 @@ jobs:
     - get: bosh-softlayer-stemcells
     - get: bosh-softlayer-private
     - get: vsphere-stemcell
-      trigger: true
   - task: bosh-stemcell
     file: bosh-softlayer-stemcells/ci/bosh-stemcell.yml
     config:
@@ -180,7 +179,6 @@ jobs:
   public: true
   plan:
   - get: bosh-softlayer-cpi
-    trigger: true
   - task: unit
     file: bosh-softlayer-cpi/ci/unit.yml
     config:
@@ -252,6 +250,7 @@ jobs:
   - aggregate:
     - get: bosh-softlayer-stemcells
       passed: [import-stemcell]
+      trigger: true
     - get: stemcell-info
       trigger: true
       passed: [import-stemcell]
@@ -272,13 +271,13 @@ jobs:
     - get: bosh-softlayer-stemcells
     - get: bosh-release
     - get: light-stemcell
+      passed:
+      - create-light-stemcell
       trigger: true
-      passed: [create-light-stemcell]
     - get: bosh-softlayer-cpi-final-release
       passed: [cpi-release-shipit]
       trigger: true
     - get: stemcell-version
-      passed: [create-light-stemcell]
   - task: bosh-init
     file: bosh-softlayer-stemcells/ci/bosh-init.yml
     config:

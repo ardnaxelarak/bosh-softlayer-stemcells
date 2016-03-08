@@ -1,13 +1,14 @@
 #!/bin/bash
 
 (
-  set -e
+  set -e -x
 
   echo -e "\n Get stemcell version..."
-  STEMCELL_VERSION=`cat stemcell-version/stemcell-version`
+
+  STEMCELL_VERSION=$(cat stemcell-version/number | cut -f1 -d.)
 
   echo -e "\n Unpacking tgz..."
-  tar zxf s3-vsphere-stemcell/*.tgz
+  tar zxf candidate-stemcell-ubuntu-trusty/.+\.tgz
   tar zxf image
 
   ls -la

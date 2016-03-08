@@ -6,4 +6,4 @@ inputs:
   - name: bosh-softlayer-stemcells
 
 run:
-  path: bosh-softlayer-stemcells/ci/scripts/remove-expiration
+  path: bosh-softlayer-stemcells/ci/tasks/remove-expiration
