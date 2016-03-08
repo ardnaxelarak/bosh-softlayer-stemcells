@@ -13,7 +13,6 @@ jobs:
 - name: build-ubuntu-trusty
   plan:
   - get: bosh-src
-    passed: [new-version]
   - get: bosh-softlayer-stemcells
   - get: stemcell-version
     passed: [new-version]
@@ -92,7 +91,6 @@ jobs:
 - name: remove-expiration-tag
   plan:
   - get: bosh-softlayer-stemcells
-    passed: [shipit]
   - task: remove-expiration-tag-vhd
     file: bosh-softlayer-stemcells/ci/remove-expiration.yml
     config:
@@ -191,14 +189,6 @@ resources:
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
 
-- name: stemcell-version
-  type: s3
-  source:
-    bucket: {{s3_candidate_stemcell_bucket_name}}
-    versioned_file: stemcell-version
-    access_key_id: {{s3-access-key-id}}
-    secret_access_key: {{s3-secret-access-key}}
-
 - name: softlayer-stemcell
   type: s3
   source:
@@ -221,11 +211,10 @@ resources:
     interval: 336h
 
 groups:
-- name: bosh-softlayer-stemcells
-  jobs:
-  - new-version
-  - build-ubuntu-trusty
-  - convert-stemcell
-  - create-light-stemcell
-  - import-stemcell
-  - stemcells-unit
+  - name: bosh-softlayer-stemcells
+    jobs:
+    - new-version
+    - build-ubuntu-trusty
+    - convert-stemcell
+    - import-stemcell
+    - create-light-stemcell
