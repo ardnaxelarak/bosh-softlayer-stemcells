@@ -24,7 +24,7 @@ get_ip_from_vagrant_ssh_config() {
 
 build_num=$(cat stemcell-version/number | cut -f1 -d.)
 
-cd bosh-src
+pushd bosh-src
 
 # todo check out correct version of bosh-src for that stemcell
 # git checkout stable-${build_num}
@@ -32,8 +32,6 @@ cd bosh-src
 # git clean -fdx
 
 bundle
-
-pushd bosh-src
 
 set_up_vagrant_private_key
 
