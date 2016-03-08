@@ -8,7 +8,7 @@ jobs:
   - task: make-version
     file: bosh-softlayer-stemcells/ci/tasks/make-stemcell-version.yml
   - put: stemcell-version
-    params: {file: make-version/semver}
+    params: {file: version/semver}
 
 - name: build-ubuntu-trusty
   plan:

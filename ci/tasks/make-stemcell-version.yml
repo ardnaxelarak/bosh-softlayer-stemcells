@@ -4,5 +4,7 @@ image: docker:///cloudfoundry/bosh-lite-ci
 inputs:
 - name: published-stemcell
 - name: bosh-softlayer-stemcells
+outputs:
+  - name: version
 run:
   path: bosh-softlayer-stemcells/ci/tasks/make-stemcell-version.sh
