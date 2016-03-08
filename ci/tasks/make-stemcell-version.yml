@@ -2,8 +2,8 @@
 platform: linux
 image: docker:///cloudfoundry/bosh-lite-ci
 inputs:
-- name: published-stemcell
-- name: bosh-softlayer-stemcells
+  - name: published-stemcell
+  - name: bosh-softlayer-stemcells
 outputs:
   - name: version
 run:

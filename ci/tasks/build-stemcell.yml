@@ -2,8 +2,10 @@
 platform: linux
 image: docker:///cloudfoundry/bosh-lite-ci
 inputs:
-- name: bosh-src
-- name: stemcell-version
-- name: bosh-softlayer-stemcells
+  - name: bosh-src
+  - name: stemcell-version
+  - name: bosh-softlayer-stemcells
+outputs:
+  - name: build
 run:
   path: bosh-softlayer-stemcells/ci/tasks/build-stemcell.sh
