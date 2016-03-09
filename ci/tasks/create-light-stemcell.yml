@@ -7,6 +7,8 @@ inputs:
     path: gopath/src/github.com/maximilien/bosh-softlayer-stemcells
   - name: stemcell-info
   - name: stemcell-version
+outputs:
+  - name: new-light-stemcell
 
 run:
   path: gopath/src/github.com/maximilien/bosh-softlayer-stemcells/ci/tasks/create-light-stemcell

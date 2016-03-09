@@ -17,4 +17,6 @@
 
   echo -e "\n Softlayer create light stemcell..."
   out/sl_stemcells -c light-stemcell --version $STEMCELL_VERSION --stemcell-info-filename stemcell-info/stemcell-info.json
+
+  mv *.tgz new-light-stemcell/
 )

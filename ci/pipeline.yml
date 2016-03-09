@@ -84,7 +84,7 @@ jobs:
         SL_USERNAME: {{SL_USERNAME}}
         SL_API_KEY: {{SL_API_KEY}}
   - put: light-stemcell
-    params: {from: *.tgz}
+    params: {from: new-light-stemcell/.*\.tgz}
 
 - name: stemcells-unit
   public: true
