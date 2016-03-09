@@ -14,7 +14,7 @@ set_up_vagrant_private_key() {
 }
 
 clean_vagrant() {
-  vagrant destroy remote -f || true
+  # vagrant destroy remote -f || true
 }
 
 get_ip_from_vagrant_ssh_config() {
@@ -50,4 +50,4 @@ builder_ip=$(get_ip_from_vagrant_ssh_config)
 
 popd
 
-scp ubuntu@${builder_ip}:/bosh/tmp/*.tgz build/
+scp ubuntu@${builder_ip}:/mnt/stemcells/$IAAS/$HYPERVISOR/$OS_NAME/work/work/*.tgz build/
