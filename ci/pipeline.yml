@@ -64,7 +64,7 @@ jobs:
         SWIFT_CLUSTER: {{SWIFT_CLUSTER}}
         SWIFT_CONTAINER: {{SWIFT_CONTAINER}}
   - put: stemcell-info
-    params: {from: import-stemcell-image/stemcell-info.json}
+    params: {from: stemcell-image/stemcell-info.json}
 
 - name: create-light-stemcell
   plan:

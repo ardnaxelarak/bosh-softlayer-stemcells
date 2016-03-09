@@ -6,6 +6,7 @@ inputs:
   - name: bosh-softlayer-stemcells
     path: gopath/src/github.com/maximilien/bosh-softlayer-stemcells
   - name: stemcell-version
-
+outputs:
+  - name: stemcell-image
 run:
   path: gopath/src/github.com/maximilien/bosh-softlayer-stemcells/ci/tasks/import-stemcell
