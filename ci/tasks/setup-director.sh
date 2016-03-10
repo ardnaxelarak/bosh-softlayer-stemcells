@@ -183,7 +183,7 @@ cloud_provider:
     ntp: *ntp
 EOF
 
-cp ./bosh-cpi-dev-artifacts/${cpi_release_name}-${semver}.tgz ${deployment_dir}/${cpi_release_name}.tgz
+cp ./bosh-cpi-artifacts/${cpi_release_name}-${semver}.tgz ${deployment_dir}/${cpi_release_name}.tgz
 cp ./stemcell/*.tgz ${deployment_dir}/stemcell.tgz
 cp ./bosh-release/*.tgz ${deployment_dir}/bosh-release.tgz
 

@@ -2,7 +2,7 @@
 platform: linux
 image: docker:///boshcpi/azure-cpi-release
 inputs:
-  - name: bosh-cpi-dev-artifacts # -++ used for deployment manifest referenced by manifest_path
+  - name: bosh-cpi-artifacts # -++ used for deployment manifest referenced by manifest_path
   - name: bosh-softlayer-stemcells
   - name: bosh-init              # --- bosh-init executable to do deploy
   - name: bosh-release           # -\
