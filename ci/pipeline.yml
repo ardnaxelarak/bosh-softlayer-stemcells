@@ -93,6 +93,7 @@ jobs:
     - {trigger: false,                                    get: bosh-init}
     - {trigger: true,  passed: [create-light-stemcell],   get: stemcell, resource: light-stemcell}
     - {trigger: false,                                    get: bosh-release}
+    - {trigger: false, passed: [create-light-stemcell],   get: stemcell-version}
 
   - task: setup-director
     file: bosh-softlayer-stemcells/ci/tasks/setup-director.yml

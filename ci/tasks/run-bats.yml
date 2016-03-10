@@ -6,6 +6,7 @@ inputs:
   - name: bosh-softlayer-stemcells
   - name: bats
   - name: deployment
+  - name: stemcell-version
 outputs:
   - name: final-stemcell
 run:
