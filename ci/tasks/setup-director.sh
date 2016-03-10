@@ -17,7 +17,6 @@ check_param BOSH_INIT_LOG_LEVEL
 source /etc/profile.d/chruby.sh
 chruby 2.1.2
 
-semver=`cat version-semver/number`
 cpi_release_name=bosh-softlayer-cpi
 deployment_dir="${PWD}/deployment"
 manifest_filename="director-manifest.yml"
@@ -183,7 +182,7 @@ cloud_provider:
     ntp: *ntp
 EOF
 
-cp ./bosh-cpi-artifacts/${cpi_release_name}-${semver}.tgz ${deployment_dir}/${cpi_release_name}.tgz
+cp ./bosh-cpi-artifacts/*.tgz ${deployment_dir}/${cpi_release_name}.tgz
 cp ./stemcell/*.tgz ${deployment_dir}/stemcell.tgz
 cp ./bosh-release/*.tgz ${deployment_dir}/bosh-release.tgz
 
