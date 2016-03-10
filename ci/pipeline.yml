@@ -70,9 +70,8 @@ jobs:
   plan:
   - aggregate:
     - get: bosh-softlayer-stemcells
-      trigger: true
+      passed: [import-stemcell]
     - get: stemcell-info
-      trigger: true
       passed: [import-stemcell]
     - get: stemcell-version
       passed: [import-stemcell]
