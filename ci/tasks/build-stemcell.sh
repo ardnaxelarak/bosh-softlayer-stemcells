@@ -4,7 +4,7 @@ set -e -x
 
 trap clean_vagrant EXIT
 
-./() {
+set_up_vagrant_private_key() {
   key_path=$(mktemp -d /tmp/ssh_key.XXXXXXXXXX)/value
   echo "$BOSH_PRIVATE_KEY" > $key_path
   chmod 600 $key_path
