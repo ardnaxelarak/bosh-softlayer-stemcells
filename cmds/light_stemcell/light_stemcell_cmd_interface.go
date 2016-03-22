@@ -27,6 +27,7 @@ type LightStemcellMF struct {
 	Version         string          `json:"version" yaml:"version"`
 	BoshProtocol    int             `json:"bosh_protocol" yaml:"bosh_protocol"`
 	Sha1            string          `json:"sha1" yaml:"sha1"`
+	OperatingSystem string          `json:"operating_system" yaml:"operating_system"`
 	CloudProperties CloudProperties `json:"cloud_properties" yaml:"cloud_properties"`
 }
 
