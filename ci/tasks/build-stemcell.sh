@@ -22,7 +22,7 @@ get_ip_from_vagrant_ssh_config() {
   echo $(echo "$config" | grep HostName | awk '{print $2}')
 }
 
-build_num=$( cat version/number | sed 's/\.0$//;s/\.0$//' )
+build_num=$(cat stemcell-version/number | sed 's/\.0$//;s/\.0$//')
 
 pushd bosh-src
 
