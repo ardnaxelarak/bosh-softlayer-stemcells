@@ -22,7 +22,7 @@ get_ip_from_vagrant_ssh_config() {
   echo $(echo "$config" | grep HostName | awk '{print $2}')
 }
 
-build_num=$(cat stemcell-version/number | cut -f1 -d.)
+build_num=$( cat version/number | sed 's/\.0$//;s/\.0$//' )
 
 pushd bosh-src
 
@@ -43,6 +43,7 @@ vagrant ssh -c "
   cd /bosh
   bundle
   export CANDIDATE_BUILD_NUMBER=$build_num
+  export BOSH_MICRO_ENABLED=false
   bundle exec rake stemcell:build[$IAAS,$HYPERVISOR,$OS_NAME,$OS_VERSION,go,bosh-os-images,bosh-$OS_NAME-$OS_VERSION-os-image.tgz]
 " remote
 
