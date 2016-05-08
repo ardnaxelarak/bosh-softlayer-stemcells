@@ -5,7 +5,7 @@
 
   echo -e "\n Get stemcell version..."
 
-  STEMCELL_VERSION=$(cat stemcell-version/number | cut -f1 -d.)
+  STEMCELL_VERSION=$(cat stemcell-version/number | sed 's/\.0$//;s/\.0$//')
 
   cd candidate-stemcell-ubuntu-trusty
 
