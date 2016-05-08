@@ -43,7 +43,7 @@ vagrant ssh -c "
   cd /bosh
   bundle
   export CANDIDATE_BUILD_NUMBER=$build_num
-  export BOSH_MICRO_ENABLED=false
+  export BOSH_MICRO_ENABLED=no
   bundle exec rake stemcell:build[$IAAS,$HYPERVISOR,$OS_NAME,$OS_VERSION,go,bosh-os-images,bosh-$OS_NAME-$OS_VERSION-os-image.tgz]
 " remote
 
