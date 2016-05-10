@@ -53,6 +53,6 @@ popd
 
 scp ubuntu@${builder_ip}:/bosh/tmp/*.tgz build/
 
-apt-get install ntp
+apt-get -y install ntp
 
 /usr/sbin/ntpdate ntp.ovh.net
