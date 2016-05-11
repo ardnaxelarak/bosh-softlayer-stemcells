@@ -52,7 +52,3 @@ builder_ip=$(get_ip_from_vagrant_ssh_config)
 popd
 
 scp ubuntu@${builder_ip}:/bosh/tmp/*.tgz build/
-
-apt-get -y install ntp
-
-/usr/sbin/ntpdate ntp.ovh.net
