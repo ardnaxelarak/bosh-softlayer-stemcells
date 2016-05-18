@@ -52,3 +52,9 @@ builder_ip=$(get_ip_from_vagrant_ssh_config)
 popd
 
 scp ubuntu@${builder_ip}:/bosh/tmp/*.tgz build/
+
+service ntp stop
+
+ntpdate -s 0.amazon.pool.ntp.org
+
+service ntp start
