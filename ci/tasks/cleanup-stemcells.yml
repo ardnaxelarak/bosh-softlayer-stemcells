@@ -1,6 +1,10 @@
 ---
 platform: linux
-image: docker:///swayr/slci
+
+image_resource:
+  type: docker-image
+  source:
+    repository: swayr/slci
 
 inputs:
   - name: timer-2weeks
