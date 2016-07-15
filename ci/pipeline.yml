@@ -28,7 +28,7 @@ jobs:
       OS_NAME: ubuntu
       OS_VERSION: trusty
   - put: candidate-stemcell-ubuntu-trusty
-    params: {from: build/bosh-stemcell-.*-softlayer-.*\.tgz}
+    params: {file: build/*.tgz}
 
 - name: convert-stemcell
   plan:
@@ -61,7 +61,7 @@ jobs:
       SWIFT_CLUSTER: {{SWIFT_CLUSTER}}
       SWIFT_CONTAINER: {{SWIFT_CONTAINER}}
   - put: stemcell-info
-    params: {from: stemcell-image/stemcell-info.json}
+    params: {file: stemcell-image/stemcell-info.json}
 
 - name: create-light-stemcell
   plan:
@@ -78,7 +78,7 @@ jobs:
       SL_USERNAME: {{softlayer_username}}
       SL_API_KEY: {{softlayer_api_key}}
   - put: light-stemcell
-    params: {from: new-light-stemcell/.*\.tgz}
+    params: {file: new-light-stemcell/*.tgz}
 
 - name: validate-stemcell-ubuntu
   plan:
@@ -117,14 +117,14 @@ jobs:
     file: bosh-softlayer-stemcells/ci/tasks/teardown-director.yml
 
   - put: light-stemcell-final
-    params: {from: final-stemcell/.*\.tgz}
+    params: {file: final-stemcell/*.tgz}
 
 resources:
 - name: bosh-src
   type: git
   source:
-    uri: https://github.com/jianqiu/bosh.git
-    branch: container_based_method
+    uri: https://github.com/zhanggbj/bosh.git
+    branch: stemcell_v2
     private_key: {{github_promote_private_key}}
 
 - name: published-stemcell
@@ -144,7 +144,7 @@ resources:
 - name: candidate-stemcell-ubuntu-trusty
   type: s3
   source:
-    regexp: bosh-stemcell-([0-9]+)-softlayer-esxi-ubuntu-trusty-go_agent.tgz
+    regexp: bosh-stemcell-(.*)-softlayer-esxi-ubuntu-trusty-go_agent.tgz
     bucket: {{s3_candidate_stemcell_bucket}}
     access_key_id: {{aws_builder_access_key}}
     secret_access_key: {{aws_builder_secret_access_key}}
@@ -152,7 +152,7 @@ resources:
 - name: light-stemcell
   type: s3
   source:
-    regexp: light-bosh-stemcell-\d+-softlayer-.*\.tgz
+    regexp: light-bosh-stemcell-(.*)-softlayer-(.*).tgz
     bucket: {{s3_candidate_stemcell_bucket}}
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
@@ -160,7 +160,7 @@ resources:
 - name: light-stemcell-final
   type: s3
   source:
-    regexp: light-bosh-stemcell-\d+-softlayer-.*\.tgz
+    regexp: light-bosh-stemcell-(.*)-softlayer-(.*).tgz
     bucket: {{s3_stemcell_bucket}}
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
@@ -183,7 +183,7 @@ resources:
 - name: bosh-cpi-artifacts
   type: s3
   source:
-    regexp: bosh-softlayer-cpi-([0-9.]+)\.tgz
+    regexp: bosh-softlayer-cpi-(\d+\.\d+\.\d+)\.tgz
     bucket: dev-bosh-softlayer-cpi-stemcells
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
@@ -206,15 +206,15 @@ resources:
 - name: bosh-init
   type: s3
   source:
-    regexp: bosh-init-([0-9.]+)-linux-amd64
-    bucket: bosh-softlayer-cpi-stemcells
+    regexp: bosh-init-(.*)-linux-amd64
+    bucket: bosh-softlayer-tmp
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
 
 - name: bosh-release
   type: s3
   source:
-      bucket: bosh-softlayer-cpi-stemcells
+      bucket: bosh-softlayer-tmp
       regexp: bosh-236\+dev\.([0-9.]+)\.tgz
       access_key_id: {{s3-access-key-id}}
       secret_access_key: {{s3-secret-access-key}}
