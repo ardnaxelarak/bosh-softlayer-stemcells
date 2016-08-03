@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e -x
+set -e
 
 source bosh-softlayer-stemcells/ci/tasks/utils.sh
 
@@ -15,8 +15,7 @@ check_param SL_VLAN_PRIVATE
 check_param BOSH_INIT_LOG_LEVEL
 
 source /etc/profile.d/chruby.sh
-chruby
-chruby 2.1.2
+chruby 2.2.4
 
 cpi_release_name=bosh-softlayer-cpi
 deployment_dir="${PWD}/deployment"
